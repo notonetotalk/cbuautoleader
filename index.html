@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="./css/style.css">
+	</head>
+	<body>
+		<form class="form">
+			<div class="c6858">CBU AutoLeader
+				<br/>
+			</div>
+			<div class="row">
+				<div class="cell">
+					<button type="button" class="button" id="add0">0</button>
+				</div>
+				<div class="cell">
+					<button type="button" class="button" id="add1">1</button>
+				</div>
+				<div class="cell">
+					<button type="button" class="button" id="add2">2</button>
+				</div>
+				<div class="cell">
+					<button type="button" class="button resetbutton" id="reset">Reset</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="cell">
+					<input placeholder="No code found" class="input" id="codeOutput"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="cell">
+					<div class="form-group">
+						<div class="form-group toggle-group">
+							<input type="radio" id="radioThraxis" class="radio" name="method"/>
+							<label class="checkbox-label">Thraxis</label>
+						</div>
+						<div class="form-group toggle-group">
+							<input type="radio" checked="checked" id="radioMadisons" class="radio" name ="method"/>
+							<label class="checkbox-label">Madison's</label>
+						</div>
+						<div class="form-group toggle-group">
+							<input type="checkbox" id="checkCopy" class="checkbox"/>
+							<label class="checkbox-label">Copy to clipboard</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<script src="cbuautoleader.js"></script>
+	</body>
+<html>
