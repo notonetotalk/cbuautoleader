@@ -78,6 +78,7 @@ body{
   margin-right:0px;
   margin-bottom:15px;
   margin-left:0px;
+  background-color:rgb(91, 91, 91);
   border-top-color:currentcolor;
   border-top-style:none;
   border-top-width:medium;
@@ -99,7 +100,7 @@ body{
   -moz-border-left-colors:none;
   -moz-border-bottom-colors:none;
   -moz-border-right-colors:none;
-  color:#d4d4d4;
+  color:rgb(212, 212, 212);
   border-top-left-radius:2px;
   border-top-right-radius:2px;
   border-bottom-right-radius:2px;
@@ -110,15 +111,23 @@ body{
   padding-left:10px;
   font-size:1em;
   cursor:pointer;
-  margin:15px 0px 15px 0px;
-  padding:7px 10px 7px 10px;
-  background-color:#5b5b5b;
+  box-shadow:1px 1px 1px 0px #2e2e2e ;
 }
 .form-group{
   padding:0px 0px 10px 0px;
 }
-.button.resetbutton{
+.button.reset-button{
   background-color:#785580;
+}
+.button.pressed-button{
+  background-color:#434343;
+  box-shadow:-1px -1px 1px 0px #363636 ;
+  color:#777777;
+}
+.button.reset-button.pressed-reset-button{
+  box-shadow:-1px -1px 1px 0px #363636 ;
+  background-color:#5b4260;
+  color:#777777;
 }
 .c6858{
   padding:10px;

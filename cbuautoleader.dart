@@ -16,6 +16,10 @@ void main() {
 	querySelector("#add1").onClick.listen(add1);
 	querySelector("#add2").onClick.listen(add2);
 	querySelector("#reset").onClick.listen(reset);
+	querySelector("#add0").onMouseDown.listen(pressButton);
+	querySelector("#add1").onMouseDown.listen(pressButton);
+	querySelector("#add2").onMouseDown.listen(pressButton);
+	querySelector("#reset").onMouseDown.listen(pressResetButton);
 	querySelector("#radioThraxis").onChange.listen(changeCodeTreeReset);
 	querySelector("#radioMadisons").onChange.listen(changeCodeTreeReset);
 	querySelector("#checkCopy").onChange.listen(pushOutput);
@@ -72,6 +76,7 @@ void reset([MouseEvent event]) {
 
 	tree = "";
 	pushOutput();
+	if (event != null) {(event.target as ButtonElement).classes.remove("pressed-reset-button");}
 
 }
 
@@ -86,6 +91,40 @@ void pushOutput([Event event]) {
 		document.execCommand("copy");
 	
 	}
+	greyOutButtons();
+
+}
+
+void greyOutButtons() {
+	//ButtonElement buttons = 
+	if (codeTree[tree + "0"] == null) {
+		(querySelector("#add0") as ButtonElement).classes.add("pressed-button");
+	} else {
+		(querySelector("#add0") as ButtonElement).classes.remove("pressed-button");
+	}
+	if (codeTree[tree + "1"] == null) {
+		(querySelector("#add1") as ButtonElement).classes.add("pressed-button");
+	} else {
+		(querySelector("#add1") as ButtonElement).classes.remove("pressed-button");
+	}
+	if (codeTree[tree + "2"] == null) {
+		(querySelector("#add2") as ButtonElement).classes.add("pressed-button");
+	} else {
+		(querySelector("#add2") as ButtonElement).classes.remove("pressed-button");
+	}
+		
+
+}
+
+void pressButton(MouseEvent event) {
+
+	(event.target as ButtonElement).classes.add("pressed-button");
+
+}
+
+void pressResetButton(MouseEvent event) {
+
+	(event.target as ButtonElement).classes.add("pressed-reset-button");
 
 }
 

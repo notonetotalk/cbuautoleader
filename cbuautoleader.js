@@ -586,7 +586,7 @@
       toString$0: ["super$Interceptor$toString", function(receiver) {
         return H.Primitives_objectToHumanReadableString(receiver);
       }],
-      "%": "Blob|DOMError|File|FileError|MediaError|NavigatorUserMediaError|PositionError|SQLError|SVGAnimatedNumberList|SVGAnimatedString"
+      "%": "Blob|Client|DOMError|File|FileError|MediaError|NavigatorUserMediaError|PositionError|SQLError|SVGAnimatedLength|SVGAnimatedLengthList|SVGAnimatedNumber|SVGAnimatedNumberList|SVGAnimatedString|WindowClient"
     },
     JSBool: {
       "^": "Interceptor;",
@@ -818,7 +818,8 @@
       substring$2: function(receiver, startIndex, endIndex) {
         if (endIndex == null)
           endIndex = receiver.length;
-        H.checkInt(endIndex);
+        if (typeof endIndex !== "number" || Math.floor(endIndex) !== endIndex)
+          H.throwExpression(H.argumentErrorValue(endIndex));
         if (startIndex < 0)
           throw H.wrapException(P.RangeError$value(startIndex, null, null));
         if (typeof endIndex !== "number")
@@ -2105,11 +2106,6 @@
     },
     argumentErrorValue: function(object) {
       return new P.ArgumentError(true, object, null, null);
-    },
-    checkInt: function(value) {
-      if (typeof value !== "number" || Math.floor(value) !== value)
-        throw H.wrapException(H.argumentErrorValue(value));
-      return value;
     },
     wrapException: function(ex) {
       var wrapper;
@@ -3797,14 +3793,14 @@
     _AsyncRun__scheduleImmediateJsOverride: [function(callback) {
       ++init.globalState.topEventLoop._activeJsAsyncCount;
       self.scheduleImmediate(H.convertDartClosureToJS(new P._AsyncRun__scheduleImmediateJsOverride_internalCallback(callback), 0));
-    }, "call$1", "async__AsyncRun__scheduleImmediateJsOverride$closure", 2, 0, 3],
+    }, "call$1", "async__AsyncRun__scheduleImmediateJsOverride$closure", 2, 0, 4],
     _AsyncRun__scheduleImmediateWithSetImmediate: [function(callback) {
       ++init.globalState.topEventLoop._activeJsAsyncCount;
       self.setImmediate(H.convertDartClosureToJS(new P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback(callback), 0));
-    }, "call$1", "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", 2, 0, 3],
+    }, "call$1", "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", 2, 0, 4],
     _AsyncRun__scheduleImmediateWithTimer: [function(callback) {
       P.Timer__createTimer(C.Duration_0, callback);
-    }, "call$1", "async__AsyncRun__scheduleImmediateWithTimer$closure", 2, 0, 3],
+    }, "call$1", "async__AsyncRun__scheduleImmediateWithTimer$closure", 2, 0, 4],
     _registerErrorHandler: function(errorHandler, zone) {
       if (H.functionTypeTest(errorHandler, {func: 1, args: [P.Null, P.Null]})) {
         zone.toString;
@@ -5532,7 +5528,7 @@
       }
     },
     _ListQueueIterator: {
-      "^": "Object;_queue,_end,_modificationCount,_position,_collection$_current",
+      "^": "Object;_queue,_end,_modificationCount,_collection$_position,_collection$_current",
       get$current: function() {
         return this._collection$_current;
       },
@@ -5541,7 +5537,7 @@
         t1 = this._queue;
         if (this._modificationCount !== t1._modificationCount)
           H.throwExpression(new P.ConcurrentModificationError(t1));
-        t2 = this._position;
+        t2 = this._collection$_position;
         if (t2 === this._end) {
           this._collection$_current = null;
           return false;
@@ -5551,7 +5547,7 @@
         if (t2 >= t3)
           return H.ioore(t1, t2);
         this._collection$_current = t1[t2];
-        this._position = (t2 + 1 & t3 - 1) >>> 0;
+        this._collection$_position = (t2 + 1 & t3 - 1) >>> 0;
         return true;
       }
     },
@@ -5963,6 +5959,23 @@
     }
   }], ["dart.dom.html", "dart:html",, W, {
     "^": "",
+    _JenkinsSmiHash_combine: function(hash, value) {
+      hash = 536870911 & hash + value;
+      hash = 536870911 & hash + ((524287 & hash) << 10);
+      return hash ^ hash >>> 6;
+    },
+    _convertNativeToDart_EventTarget: function(e) {
+      var $window;
+      if (e == null)
+        return;
+      if ("postMessage" in e) {
+        $window = W._DOMWindowCrossFrame__createSafe(e);
+        if (!!J.getInterceptor($window).$isEventTarget)
+          return $window;
+        return;
+      } else
+        return e;
+    },
     _wrapZone: function(callback) {
       var t1 = $.Zone__current;
       if (t1 === C.C__RootZone)
@@ -5971,10 +5984,10 @@
     },
     HtmlElement: {
       "^": "Element;",
-      "%": "HTMLBRElement|HTMLBaseElement|HTMLCanvasElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDirectoryElement|HTMLDivElement|HTMLEmbedElement|HTMLFieldSetElement|HTMLFontElement|HTMLFrameElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLIFrameElement|HTMLImageElement|HTMLKeygenElement|HTMLLabelElement|HTMLLegendElement|HTMLLinkElement|HTMLMapElement|HTMLMarqueeElement|HTMLMenuElement|HTMLMenuItemElement|HTMLMetaElement|HTMLModElement|HTMLOListElement|HTMLObjectElement|HTMLOptGroupElement|HTMLParagraphElement|HTMLPictureElement|HTMLPreElement|HTMLQuoteElement|HTMLScriptElement|HTMLShadowElement|HTMLSlotElement|HTMLSourceElement|HTMLSpanElement|HTMLStyleElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement;HTMLElement"
+      "%": "HTMLBRElement|HTMLCanvasElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDirectoryElement|HTMLDivElement|HTMLEmbedElement|HTMLFieldSetElement|HTMLFontElement|HTMLFrameElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLIFrameElement|HTMLImageElement|HTMLKeygenElement|HTMLLabelElement|HTMLLegendElement|HTMLLinkElement|HTMLMapElement|HTMLMarqueeElement|HTMLMenuElement|HTMLMenuItemElement|HTMLMetaElement|HTMLModElement|HTMLOListElement|HTMLObjectElement|HTMLOptGroupElement|HTMLParagraphElement|HTMLPictureElement|HTMLPreElement|HTMLQuoteElement|HTMLScriptElement|HTMLShadowElement|HTMLSlotElement|HTMLSourceElement|HTMLSpanElement|HTMLStyleElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement;HTMLElement"
     },
     AnchorElement: {
-      "^": "HtmlElement;",
+      "^": "HtmlElement;target=",
       toString$0: function(receiver) {
         return String(receiver);
       },
@@ -5982,21 +5995,32 @@
       "%": "HTMLAnchorElement"
     },
     AreaElement: {
-      "^": "HtmlElement;",
+      "^": "HtmlElement;target=",
       toString$0: function(receiver) {
         return String(receiver);
       },
       $isInterceptor: 1,
       "%": "HTMLAreaElement"
     },
+    BaseElement: {
+      "^": "HtmlElement;target=",
+      "%": "HTMLBaseElement"
+    },
     BodyElement: {
       "^": "HtmlElement;",
+      $isEventTarget: 1,
       $isInterceptor: 1,
       "%": "HTMLBodyElement"
     },
     ButtonElement: {
       "^": "HtmlElement;value}",
+      $isButtonElement: 1,
       "%": "HTMLButtonElement"
+    },
+    CharacterData: {
+      "^": "Node;length=",
+      $isInterceptor: 1,
+      "%": "CDATASection|Comment|Text;CharacterData"
     },
     ContentElement: {
       "^": "HtmlElement;",
@@ -6005,12 +6029,21 @@
       },
       "%": "HTMLContentElement"
     },
+    DocumentFragment: {
+      "^": "Node;",
+      $isInterceptor: 1,
+      "%": "DocumentFragment|ShadowRoot"
+    },
     DomException: {
       "^": "Interceptor;",
       toString$0: function(receiver) {
         return String(receiver);
       },
       "%": "DOMException"
+    },
+    DomTokenList: {
+      "^": "Interceptor;length=",
+      "%": "DOMTokenList"
     },
     Element: {
       "^": "Node;",
@@ -6023,7 +6056,11 @@
       get$onClick: function(receiver) {
         return new W._ElementEventStreamImpl(receiver, "click", false, [W.MouseEvent]);
       },
+      get$onMouseDown: function(receiver) {
+        return new W._ElementEventStreamImpl(receiver, "mousedown", false, [W.MouseEvent]);
+      },
       $isInterceptor: 1,
+      $isEventTarget: 1,
       "%": ";Element"
     },
     ErrorEvent: {
@@ -6032,6 +6069,9 @@
     },
     Event: {
       "^": "Interceptor;",
+      get$target: function(receiver) {
+        return W._convertNativeToDart_EventTarget(receiver.target);
+      },
       $isEvent: 1,
       $isObject: 1,
       "%": "AnimationEvent|AnimationPlayerEvent|ApplicationCacheErrorEvent|AudioProcessingEvent|AutocompleteErrorEvent|BeforeInstallPromptEvent|BeforeUnloadEvent|BlobEvent|ClipboardEvent|CloseEvent|CustomEvent|DeviceLightEvent|DeviceMotionEvent|DeviceOrientationEvent|ExtendableEvent|ExtendableMessageEvent|FetchEvent|FontFaceSetLoadEvent|GamepadEvent|GeofencingEvent|HashChangeEvent|IDBVersionChangeEvent|InstallEvent|MIDIConnectionEvent|MIDIMessageEvent|MediaEncryptedEvent|MediaKeyMessageEvent|MediaQueryListEvent|MediaStreamEvent|MediaStreamTrackEvent|MessageEvent|NotificationEvent|OfflineAudioCompletionEvent|PageTransitionEvent|PopStateEvent|PresentationConnectionAvailableEvent|PresentationConnectionCloseEvent|ProgressEvent|PromiseRejectionEvent|PushEvent|RTCDTMFToneChangeEvent|RTCDataChannelEvent|RTCIceCandidateEvent|RTCPeerConnectionIceEvent|RelatedEvent|ResourceProgressEvent|SecurityPolicyViolationEvent|ServicePortConnectEvent|ServiceWorkerMessageEvent|SpeechRecognitionEvent|SpeechSynthesisEvent|StorageEvent|SyncEvent|TrackEvent|TransitionEvent|USBConnectionEvent|WebGLContextEvent|WebKitTransitionEvent;Event|InputEvent"
@@ -6044,10 +6084,11 @@
       _removeEventListener$3: function(receiver, type, listener, options) {
         return receiver.removeEventListener(type, H.convertDartClosureToJS(listener, 1), false);
       },
-      "%": "MediaStream;EventTarget"
+      $isEventTarget: 1,
+      "%": "MediaStream|MessagePort;EventTarget"
     },
     FormElement: {
-      "^": "HtmlElement;length=",
+      "^": "HtmlElement;length=,target=",
       "%": "HTMLFormElement"
     },
     InputElement: {
@@ -6056,6 +6097,7 @@
         return receiver.select();
       },
       $isInterceptor: 1,
+      $isEventTarget: 1,
       $isRadioButtonInputElement: 1,
       $isCheckboxInputElement: 1,
       "%": "HTMLInputElement"
@@ -6090,7 +6132,8 @@
         var value = receiver.nodeValue;
         return value == null ? this.super$Interceptor$toString(receiver) : value;
       },
-      "%": "Document|HTMLDocument;Node"
+      $isObject: 1,
+      "%": "Attr|Document|HTMLDocument|XMLDocument;Node"
     },
     OptionElement: {
       "^": "HtmlElement;value}",
@@ -6103,6 +6146,10 @@
     ParamElement: {
       "^": "HtmlElement;value}",
       "%": "HTMLParamElement"
+    },
+    ProcessingInstruction: {
+      "^": "CharacterData;target=",
+      "%": "ProcessingInstruction"
     },
     ProgressElement: {
       "^": "HtmlElement;value}",
@@ -6130,12 +6177,130 @@
     Window: {
       "^": "EventTarget;",
       $isInterceptor: 1,
+      $isEventTarget: 1,
       "%": "DOMWindow|Window"
+    },
+    _ClientRect: {
+      "^": "Interceptor;height=,left=,top=,width=",
+      toString$0: function(receiver) {
+        return "Rectangle (" + H.S(receiver.left) + ", " + H.S(receiver.top) + ") " + H.S(receiver.width) + " x " + H.S(receiver.height);
+      },
+      $eq: function(receiver, other) {
+        var t1, t2, t3;
+        if (other == null)
+          return false;
+        t1 = J.getInterceptor(other);
+        if (!t1.$isRectangle)
+          return false;
+        t2 = receiver.left;
+        t3 = t1.get$left(other);
+        if (t2 == null ? t3 == null : t2 === t3) {
+          t2 = receiver.top;
+          t3 = t1.get$top(other);
+          if (t2 == null ? t3 == null : t2 === t3) {
+            t2 = receiver.width;
+            t3 = t1.get$width(other);
+            if (t2 == null ? t3 == null : t2 === t3) {
+              t2 = receiver.height;
+              t1 = t1.get$height(other);
+              t1 = t2 == null ? t1 == null : t2 === t1;
+            } else
+              t1 = false;
+          } else
+            t1 = false;
+        } else
+          t1 = false;
+        return t1;
+      },
+      get$hashCode: function(receiver) {
+        var t1, t2, t3, t4, hash;
+        t1 = J.get$hashCode$(receiver.left);
+        t2 = J.get$hashCode$(receiver.top);
+        t3 = J.get$hashCode$(receiver.width);
+        t4 = J.get$hashCode$(receiver.height);
+        t4 = W._JenkinsSmiHash_combine(W._JenkinsSmiHash_combine(W._JenkinsSmiHash_combine(W._JenkinsSmiHash_combine(0, t1), t2), t3), t4);
+        hash = 536870911 & t4 + ((67108863 & t4) << 3);
+        hash ^= hash >>> 11;
+        return 536870911 & hash + ((16383 & hash) << 15);
+      },
+      $isRectangle: 1,
+      $asRectangle: Isolate.functionThatReturnsNull,
+      "%": "ClientRect"
+    },
+    _DocumentType: {
+      "^": "Node;",
+      $isInterceptor: 1,
+      "%": "DocumentType"
     },
     _HTMLFrameSetElement: {
       "^": "HtmlElement;",
+      $isEventTarget: 1,
       $isInterceptor: 1,
       "%": "HTMLFrameSetElement"
+    },
+    _NamedNodeMap: {
+      "^": "Interceptor_ListMixin_ImmutableListMixin;",
+      get$length: function(receiver) {
+        return receiver.length;
+      },
+      $index: function(receiver, index) {
+        if (index >>> 0 !== index || index >= receiver.length)
+          throw H.wrapException(P.IndexError$(index, receiver, null, null, null));
+        return receiver[index];
+      },
+      $indexSet: function(receiver, index, value) {
+        throw H.wrapException(new P.UnsupportedError("Cannot assign element of immutable List."));
+      },
+      elementAt$1: function(receiver, index) {
+        if (index < 0 || index >= receiver.length)
+          return H.ioore(receiver, index);
+        return receiver[index];
+      },
+      $isList: 1,
+      $asList: function() {
+        return [W.Node];
+      },
+      $isEfficientLengthIterable: 1,
+      $asEfficientLengthIterable: function() {
+        return [W.Node];
+      },
+      $isJavaScriptIndexingBehavior: 1,
+      $asJavaScriptIndexingBehavior: function() {
+        return [W.Node];
+      },
+      $isJSIndexable: 1,
+      $asJSIndexable: function() {
+        return [W.Node];
+      },
+      "%": "MozNamedAttrMap|NamedNodeMap"
+    },
+    Interceptor_ListMixin: {
+      "^": "Interceptor+ListMixin;",
+      $asList: function() {
+        return [W.Node];
+      },
+      $asEfficientLengthIterable: function() {
+        return [W.Node];
+      },
+      $isList: 1,
+      $isEfficientLengthIterable: 1
+    },
+    Interceptor_ListMixin_ImmutableListMixin: {
+      "^": "Interceptor_ListMixin+ImmutableListMixin;",
+      $asList: function() {
+        return [W.Node];
+      },
+      $asEfficientLengthIterable: function() {
+        return [W.Node];
+      },
+      $isList: 1,
+      $isEfficientLengthIterable: 1
+    },
+    _ServiceWorker: {
+      "^": "EventTarget;",
+      $isEventTarget: 1,
+      $isInterceptor: 1,
+      "%": "ServiceWorker"
     },
     _EventStream: {
       "^": "Stream;$ti",
@@ -6213,13 +6378,55 @@
       call$1: function(e) {
         return this.onData.call$1(e);
       }
+    },
+    ImmutableListMixin: {
+      "^": "Object;$ti",
+      get$iterator: function(receiver) {
+        return new W.FixedSizeListIterator(receiver, this.get$length(receiver), -1, null);
+      },
+      $isList: 1,
+      $asList: null,
+      $isEfficientLengthIterable: 1,
+      $asEfficientLengthIterable: null
+    },
+    FixedSizeListIterator: {
+      "^": "Object;_array,_html$_length,_position,_html$_current",
+      moveNext$0: function() {
+        var nextPosition, t1;
+        nextPosition = this._position + 1;
+        t1 = this._html$_length;
+        if (nextPosition < t1) {
+          this._html$_current = J.$index$asx(this._array, nextPosition);
+          this._position = nextPosition;
+          return true;
+        }
+        this._html$_current = null;
+        this._position = t1;
+        return false;
+      },
+      get$current: function() {
+        return this._html$_current;
+      }
+    },
+    _DOMWindowCrossFrame: {
+      "^": "Object;_window",
+      $isEventTarget: 1,
+      $isInterceptor: 1,
+      static: {
+        _DOMWindowCrossFrame__createSafe: function(w) {
+          if (w === window)
+            return w;
+          else
+            return new W._DOMWindowCrossFrame(w);
+        }
+      }
     }
   }], ["dart.dom.indexed_db", "dart:indexed_db",, P, {
     "^": ""
   }], ["dart.dom.svg", "dart:svg",, P, {
     "^": "",
     AElement: {
-      "^": "GraphicsElement;",
+      "^": "GraphicsElement;target=",
       $isInterceptor: 1,
       "%": "SVGAElement"
     },
@@ -6323,6 +6530,59 @@
       $isInterceptor: 1,
       "%": "SVGImageElement"
     },
+    Length: {
+      "^": "Interceptor;",
+      $isObject: 1,
+      "%": "SVGLength"
+    },
+    LengthList: {
+      "^": "Interceptor_ListMixin_ImmutableListMixin0;",
+      get$length: function(receiver) {
+        return receiver.length;
+      },
+      $index: function(receiver, index) {
+        if (index >>> 0 !== index || index >= receiver.length)
+          throw H.wrapException(P.IndexError$(index, receiver, null, null, null));
+        return receiver.getItem(index);
+      },
+      $indexSet: function(receiver, index, value) {
+        throw H.wrapException(new P.UnsupportedError("Cannot assign element of immutable List."));
+      },
+      elementAt$1: function(receiver, index) {
+        return this.$index(receiver, index);
+      },
+      $isList: 1,
+      $asList: function() {
+        return [P.Length];
+      },
+      $isEfficientLengthIterable: 1,
+      $asEfficientLengthIterable: function() {
+        return [P.Length];
+      },
+      "%": "SVGLengthList"
+    },
+    Interceptor_ListMixin0: {
+      "^": "Interceptor+ListMixin;",
+      $asList: function() {
+        return [P.Length];
+      },
+      $asEfficientLengthIterable: function() {
+        return [P.Length];
+      },
+      $isList: 1,
+      $isEfficientLengthIterable: 1
+    },
+    Interceptor_ListMixin_ImmutableListMixin0: {
+      "^": "Interceptor_ListMixin0+ImmutableListMixin;",
+      $asList: function() {
+        return [P.Length];
+      },
+      $asEfficientLengthIterable: function() {
+        return [P.Length];
+      },
+      $isList: 1,
+      $isEfficientLengthIterable: 1
+    },
     MarkerElement: {
       "^": "SvgElement;",
       $isInterceptor: 1,
@@ -6332,6 +6592,59 @@
       "^": "SvgElement;",
       $isInterceptor: 1,
       "%": "SVGMaskElement"
+    },
+    Number: {
+      "^": "Interceptor;",
+      $isObject: 1,
+      "%": "SVGNumber"
+    },
+    NumberList: {
+      "^": "Interceptor_ListMixin_ImmutableListMixin1;",
+      get$length: function(receiver) {
+        return receiver.length;
+      },
+      $index: function(receiver, index) {
+        if (index >>> 0 !== index || index >= receiver.length)
+          throw H.wrapException(P.IndexError$(index, receiver, null, null, null));
+        return receiver.getItem(index);
+      },
+      $indexSet: function(receiver, index, value) {
+        throw H.wrapException(new P.UnsupportedError("Cannot assign element of immutable List."));
+      },
+      elementAt$1: function(receiver, index) {
+        return this.$index(receiver, index);
+      },
+      $isList: 1,
+      $asList: function() {
+        return [P.Number];
+      },
+      $isEfficientLengthIterable: 1,
+      $asEfficientLengthIterable: function() {
+        return [P.Number];
+      },
+      "%": "SVGNumberList"
+    },
+    Interceptor_ListMixin1: {
+      "^": "Interceptor+ListMixin;",
+      $asList: function() {
+        return [P.Number];
+      },
+      $asEfficientLengthIterable: function() {
+        return [P.Number];
+      },
+      $isList: 1,
+      $isEfficientLengthIterable: 1
+    },
+    Interceptor_ListMixin_ImmutableListMixin1: {
+      "^": "Interceptor_ListMixin1+ImmutableListMixin;",
+      $asList: function() {
+        return [P.Number];
+      },
+      $asEfficientLengthIterable: function() {
+        return [P.Number];
+      },
+      $isList: 1,
+      $isEfficientLengthIterable: 1
     },
     PatternElement: {
       "^": "SvgElement;",
@@ -6351,6 +6664,10 @@
       get$onClick: function(receiver) {
         return new W._ElementEventStreamImpl(receiver, "click", false, [W.MouseEvent]);
       },
+      get$onMouseDown: function(receiver) {
+        return new W._ElementEventStreamImpl(receiver, "mousedown", false, [W.MouseEvent]);
+      },
+      $isEventTarget: 1,
       $isInterceptor: 1,
       "%": "SVGComponentTransferFunctionElement|SVGDescElement|SVGDiscardElement|SVGFEDistantLightElement|SVGFEFuncAElement|SVGFEFuncBElement|SVGFEFuncGElement|SVGFEFuncRElement|SVGFEMergeNodeElement|SVGFEPointLightElement|SVGFESpotLightElement|SVGMetadataElement|SVGStopElement|SVGStyleElement|SVGTitleElement;SVGElement"
     },
@@ -6414,8 +6731,7 @@
     main: [function() {
       var t1, t2;
       B.changeCodeTree(null);
-      $.tree = "";
-      B.pushOutput(null);
+      B.reset(null);
       t1 = document;
       t2 = J.get$onClick$x(t1.querySelector("#add0"));
       W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__add0$closure(), false, H.getTypeArgumentByIndex(t2, 0));
@@ -6425,6 +6741,14 @@
       W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__add2$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onClick$x(t1.querySelector("#reset"));
       W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__reset$closure(), false, H.getTypeArgumentByIndex(t2, 0));
+      t2 = J.get$onMouseDown$x(t1.querySelector("#add0"));
+      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__pressButton$closure(), false, H.getTypeArgumentByIndex(t2, 0));
+      t2 = J.get$onMouseDown$x(t1.querySelector("#add1"));
+      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__pressButton$closure(), false, H.getTypeArgumentByIndex(t2, 0));
+      t2 = J.get$onMouseDown$x(t1.querySelector("#add2"));
+      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__pressButton$closure(), false, H.getTypeArgumentByIndex(t2, 0));
+      t2 = J.get$onMouseDown$x(t1.querySelector("#reset"));
+      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__pressResetButton$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onChange$x(t1.querySelector("#radioThraxis"));
       W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__changeCodeTreeReset$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onChange$x(t1.querySelector("#radioMadisons"));
@@ -6448,8 +6772,7 @@
     },
     changeCodeTreeReset: [function($event) {
       B.changeCodeTree(null);
-      $.tree = "";
-      B.pushOutput(null);
+      B.reset(null);
     }, function() {
       return B.changeCodeTreeReset(null);
     }, "call$1", "call$0", "cbuautoleader__changeCodeTreeReset$closure", 0, 2, 6, 0],
@@ -6460,11 +6783,13 @@
     reset: [function($event) {
       $.tree = "";
       B.pushOutput(null);
+      if ($event != null)
+        H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").classList.remove("pressed-reset-button");
     }, function() {
       return B.reset(null);
     }, "call$1", "call$0", "cbuautoleader__reset$closure", 0, 2, 15, 0],
     pushOutput: [function($event) {
-      var t1, codeOutput, t2;
+      var t1, codeOutput, t2, t3;
       t1 = document;
       codeOutput = t1.querySelector("#codeOutput");
       t2 = J.getInterceptor$x(codeOutput);
@@ -6473,30 +6798,60 @@
         t2.select$0(codeOutput);
         t1.execCommand("copy");
       }
+      t2 = $.codeTree;
+      t3 = $.tree;
+      if (t3 == null)
+        return t3.$add();
+      if (t2.$index(0, t3 + "0") == null)
+        H.interceptedTypeCast(t1.querySelector("#add0"), "$isButtonElement").classList.add("pressed-button");
+      else
+        H.interceptedTypeCast(t1.querySelector("#add0"), "$isButtonElement").classList.remove("pressed-button");
+      t2 = $.codeTree;
+      t3 = $.tree;
+      if (t3 == null)
+        return t3.$add();
+      if (t2.$index(0, t3 + "1") == null)
+        H.interceptedTypeCast(t1.querySelector("#add1"), "$isButtonElement").classList.add("pressed-button");
+      else
+        H.interceptedTypeCast(t1.querySelector("#add1"), "$isButtonElement").classList.remove("pressed-button");
+      t2 = $.codeTree;
+      t3 = $.tree;
+      if (t3 == null)
+        return t3.$add();
+      if (t2.$index(0, t3 + "2") == null)
+        H.interceptedTypeCast(t1.querySelector("#add2"), "$isButtonElement").classList.add("pressed-button");
+      else
+        H.interceptedTypeCast(t1.querySelector("#add2"), "$isButtonElement").classList.remove("pressed-button");
     }, function() {
       return B.pushOutput(null);
     }, "call$1", "call$0", "cbuautoleader__pushOutput$closure", 0, 2, 6, 0],
+    pressButton: [function($event) {
+      H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").classList.add("pressed-button");
+    }, "call$1", "cbuautoleader__pressButton$closure", 2, 0, 3],
+    pressResetButton: [function($event) {
+      H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").classList.add("pressed-reset-button");
+    }, "call$1", "cbuautoleader__pressResetButton$closure", 2, 0, 3],
     add0: [function($event) {
       var t1 = $.tree;
       if (t1 == null)
         return t1.$add();
       $.tree = t1 + "0";
       B.pushOutput(null);
-    }, "call$1", "cbuautoleader__add0$closure", 2, 0, 4],
+    }, "call$1", "cbuautoleader__add0$closure", 2, 0, 3],
     add1: [function($event) {
       var t1 = $.tree;
       if (t1 == null)
         return t1.$add();
       $.tree = t1 + "1";
       B.pushOutput(null);
-    }, "call$1", "cbuautoleader__add1$closure", 2, 0, 4],
+    }, "call$1", "cbuautoleader__add1$closure", 2, 0, 3],
     add2: [function($event) {
       var t1 = $.tree;
       if (t1 == null)
         return t1.$add();
       $.tree = t1 + "2";
       B.pushOutput(null);
-    }, "call$1", "cbuautoleader__add2$closure", 2, 0, 4]
+    }, "call$1", "cbuautoleader__add2$closure", 2, 0, 3]
   }, 1]];
   setupProgram(dart, 0);
   // getInterceptor methods
@@ -6599,6 +6954,12 @@
   };
   J.get$onClick$x = function(receiver) {
     return J.getInterceptor$x(receiver).get$onClick(receiver);
+  };
+  J.get$onMouseDown$x = function(receiver) {
+    return J.getInterceptor$x(receiver).get$onMouseDown(receiver);
+  };
+  J.get$target$x = function(receiver) {
+    return J.getInterceptor$x(receiver).get$target(receiver);
   };
   J.$add$ns = function(receiver, a0) {
     if (typeof receiver == "number" && typeof a0 == "number")
@@ -6908,7 +7269,7 @@
   Isolate = Isolate.$finishIsolateConstructor(Isolate);
   $ = new Isolate();
   init.metadata = [null];
-  init.types = [{func: 1}, {func: 1, v: true}, {func: 1, args: [,]}, {func: 1, v: true, args: [{func: 1, v: true}]}, {func: 1, v: true, args: [W.MouseEvent]}, {func: 1, ret: P.String, args: [P.int]}, {func: 1, v: true, opt: [W.Event]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, args: [{func: 1, v: true}]}, {func: 1, v: true, args: [P.Object], opt: [P.StackTrace]}, {func: 1, args: [,], opt: [,]}, {func: 1, v: true, args: [, P.StackTrace]}, {func: 1, args: [,,]}, {func: 1, v: true, args: [W.Event]}, {func: 1, v: true, opt: [W.MouseEvent]}];
+  init.types = [{func: 1}, {func: 1, v: true}, {func: 1, args: [,]}, {func: 1, v: true, args: [W.MouseEvent]}, {func: 1, v: true, args: [{func: 1, v: true}]}, {func: 1, ret: P.String, args: [P.int]}, {func: 1, v: true, opt: [W.Event]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, args: [{func: 1, v: true}]}, {func: 1, v: true, args: [P.Object], opt: [P.StackTrace]}, {func: 1, args: [,], opt: [,]}, {func: 1, v: true, args: [, P.StackTrace]}, {func: 1, args: [,,]}, {func: 1, v: true, args: [W.Event]}, {func: 1, v: true, opt: [W.MouseEvent]}];
   function convertToFastObject(properties) {
     function MyClass() {
     }
