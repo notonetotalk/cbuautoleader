@@ -6055,8 +6055,9 @@
       select$0: function(receiver) {
         return receiver.select();
       },
-      $isInputElement: 1,
       $isInterceptor: 1,
+      $isRadioButtonInputElement: 1,
+      $isCheckboxInputElement: 1,
       "%": "HTMLInputElement"
     },
     LIElement: {
@@ -6435,12 +6436,12 @@
     }, "call$0", "cbuautoleader__main$closure", 0, 0, 1],
     changeCodeTree: function($event) {
       var t1 = document;
-      if (H.interceptedTypeCast(t1.querySelector("#radioMadisons"), "$isInputElement").checked === true)
-        if (H.interceptedTypeCast(t1.querySelector("#checkChance"), "$isInputElement").checked === true)
+      if (H.interceptedTypeCast(t1.querySelector("#radioMadisons"), "$isRadioButtonInputElement").checked === true)
+        if (H.interceptedTypeCast(t1.querySelector("#checkChance"), "$isCheckboxInputElement").checked === true)
           $.codeTree = $.$get$codeTreeChanceM();
         else
           $.codeTree = $.$get$codeTreeM();
-      else if (H.interceptedTypeCast(t1.querySelector("#checkChance"), "$isInputElement").checked === true)
+      else if (H.interceptedTypeCast(t1.querySelector("#checkChance"), "$isCheckboxInputElement").checked === true)
         $.codeTree = $.$get$codeTreeChanceT();
       else
         $.codeTree = $.$get$codeTreeT();
@@ -6468,7 +6469,7 @@
       codeOutput = t1.querySelector("#codeOutput");
       t2 = J.getInterceptor$x(codeOutput);
       t2.set$value(codeOutput, $.codeTree.$index(0, $.tree));
-      if (H.interceptedTypeCast(t1.querySelector("#checkCopy"), "$isInputElement").checked === true) {
+      if (H.interceptedTypeCast(t1.querySelector("#checkCopy"), "$isCheckboxInputElement").checked === true) {
         t2.select$0(codeOutput);
         t1.execCommand("copy");
       }
