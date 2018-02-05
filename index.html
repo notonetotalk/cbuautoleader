@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="./css/style.css">
 	</head>
 	<body>
-		<form class="form">
+		<form  onsubmit="return false;" class="form">
 			<div class="c6858">CBU AutoLeader
 				<br/>
 			</div>
@@ -34,19 +34,19 @@
 					<div class="form-group">
 						<div class="form-group toggle-group">
 							<input type="radio" id="radioThraxis" class="radio" name="method"/>
-							<label class="checkbox-label">Thraxis</label>
+							<label for="radioThraxis" class="checkbox-label">Thraxis</label>
 						</div>
 						<div class="form-group toggle-group">
 							<input type="radio" checked="checked" id="radioMadisons" class="radio" name ="method"/>
-							<label class="checkbox-label">Madison's</label>
+							<label for="radioMadisons" class="checkbox-label">Madison's</label>
 						</div>
 						<div class="form-group toggle-group">
 							<input type="checkbox" id="checkCopy" class="checkbox"/>
-							<label class="checkbox-label">Copy to clipboard</label>
+							<label for="checkCopy" class="checkbox-label">Copy to clipboard</label>
 						</div>
 						<div class="form-group toggle-group">
 							<input type="checkbox" id="checkChance" class="checkbox"/>
-							<label class="checkbox-label">Show percent chance</label>
+							<label for="checkChance" class="checkbox-label">Show percent chance</label>
 						</div>
 					</div>
 				</div>
