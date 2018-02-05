@@ -84,13 +84,9 @@ void reset([MouseEvent event]) {
 void moveNode(MouseEvent event) {
 
 	final String buttonValue = (event.target as ButtonElement).value;
-	if (codeTree[tree + buttonValue] != null) {
-	
-		tree = tree + buttonValue;
-		pushOutput();
-		print("Pressed ${buttonValue}");
-	
-	}
+	tree = tree + buttonValue;
+	pushOutput();
+	print("Pressed ${buttonValue}");
 
 }
 
@@ -109,7 +105,7 @@ void pushOutput([Event event]) {
 
 }
 
-// The following functions update the button styles for a visual indication of what options are available.
+// The following function update the button styles for a visual indication of what options are available.
 void updateButtonStyles() {
 
 	if (codeTree[tree + "0"] == null) {

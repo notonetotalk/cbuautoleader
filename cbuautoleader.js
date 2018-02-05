@@ -6776,20 +6776,14 @@
       return B.reset(null);
     }, "call$1", "call$0", "cbuautoleader__reset$closure", 0, 2, 14, 0],
     moveNode: [function($event) {
-      var buttonValue, t1, t2;
+      var buttonValue, t1;
       buttonValue = H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").value;
-      t1 = $.codeTree;
-      t2 = $.tree;
-      if (t2 == null)
-        return t2.$add();
-      if (t1.$index(0, J.$add$ns(t2, buttonValue)) != null) {
-        t1 = $.tree;
-        if (t1 == null)
-          return t1.$add();
-        $.tree = J.$add$ns(t1, buttonValue);
-        B.pushOutput(null);
-        P.print("Pressed " + H.S(buttonValue));
-      }
+      t1 = $.tree;
+      if (t1 == null)
+        return t1.$add();
+      $.tree = J.$add$ns(t1, buttonValue);
+      B.pushOutput(null);
+      P.print("Pressed " + H.S(buttonValue));
     }, "call$1", "cbuautoleader__moveNode$closure", 2, 0, 15],
     pushOutput: [function($event) {
       var t1, codeOutput, t2, t3;
