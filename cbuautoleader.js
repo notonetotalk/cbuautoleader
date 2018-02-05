@@ -3488,13 +3488,13 @@
       }
     },
     initHooks_closure0: {
-      "^": "Closure:7;getUnknownTag",
+      "^": "Closure:6;getUnknownTag",
       call$2: function(o, tag) {
         return this.getUnknownTag(o, tag);
       }
     },
     initHooks_closure1: {
-      "^": "Closure:8;prototypeForTag",
+      "^": "Closure:7;prototypeForTag",
       call$1: function(tag) {
         return this.prototypeForTag(tag);
       }
@@ -3959,7 +3959,7 @@
       }
     },
     _AsyncRun__initializeScheduleImmediate_closure: {
-      "^": "Closure:9;_box_0,div,span",
+      "^": "Closure:8;_box_0,div,span",
       call$1: function(callback) {
         var t1, t2;
         ++init.globalState.topEventLoop._activeJsAsyncCount;
@@ -4138,7 +4138,7 @@
         P._Future__propagateToListeners(this, listeners);
       }, function(error) {
         return this._completeError$2(error, null);
-      }, "_completeError$1", "call$2", "call$1", "get$_completeError", 2, 2, 10, 0],
+      }, "_completeError$1", "call$2", "call$1", "get$_completeError", 2, 2, 9, 0],
       _Future$value$1: function(value, $T) {
         this._state = 4;
         this._resultOrListeners = value;
@@ -4292,7 +4292,7 @@
       }
     },
     _Future__chainForeignFuture_closure0: {
-      "^": "Closure:11;target",
+      "^": "Closure:10;target",
       call$2: function(error, stackTrace) {
         this.target._completeError$2(error, stackTrace);
       },
@@ -4825,7 +4825,7 @@
       }],
       _handleError$2: [function(error, stackTrace) {
         this._stream._handleError$3(error, stackTrace, this);
-      }, "call$2", "get$_handleError", 4, 0, 12],
+      }, "call$2", "get$_handleError", 4, 0, 11],
       _handleDone$0: [function() {
         this._async$_close$0();
       }, "call$0", "get$_handleDone", 0, 0, 1],
@@ -5416,7 +5416,7 @@
       $asEfficientLengthIterable: null
     },
     Maps_mapToString_closure: {
-      "^": "Closure:13;_box_0,result",
+      "^": "Closure:12;_box_0,result",
       call$2: function(k, v) {
         var t1, t2;
         t1 = this._box_0;
@@ -5638,7 +5638,7 @@
       }
     },
     Duration_toString_sixDigits: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$1: function(n) {
         if (n >= 100000)
           return "" + n;
@@ -5654,7 +5654,7 @@
       }
     },
     Duration_toString_twoDigits: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$1: function(n) {
         if (n >= 10)
           return "" + n;
@@ -6055,9 +6055,6 @@
       },
       get$onClick: function(receiver) {
         return new W._ElementEventStreamImpl(receiver, "click", false, [W.MouseEvent]);
-      },
-      get$onMouseDown: function(receiver) {
-        return new W._ElementEventStreamImpl(receiver, "mousedown", false, [W.MouseEvent]);
       },
       $isInterceptor: 1,
       $isEventTarget: 1,
@@ -6664,9 +6661,6 @@
       get$onClick: function(receiver) {
         return new W._ElementEventStreamImpl(receiver, "click", false, [W.MouseEvent]);
       },
-      get$onMouseDown: function(receiver) {
-        return new W._ElementEventStreamImpl(receiver, "mousedown", false, [W.MouseEvent]);
-      },
       $isEventTarget: 1,
       $isInterceptor: 1,
       "%": "SVGComponentTransferFunctionElement|SVGDescElement|SVGDiscardElement|SVGFEDistantLightElement|SVGFEFuncAElement|SVGFEFuncBElement|SVGFEFuncGElement|SVGFEFuncRElement|SVGFEMergeNodeElement|SVGFEPointLightElement|SVGFESpotLightElement|SVGMetadataElement|SVGStopElement|SVGStyleElement|SVGTitleElement;SVGElement"
@@ -6741,14 +6735,6 @@
       W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__move$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onClick$x(t1.querySelector("#reset"));
       W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__reset$closure(), false, H.getTypeArgumentByIndex(t2, 0));
-      t2 = J.get$onMouseDown$x(t1.querySelector("#add0"));
-      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__pressButton$closure(), false, H.getTypeArgumentByIndex(t2, 0));
-      t2 = J.get$onMouseDown$x(t1.querySelector("#add1"));
-      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__pressButton$closure(), false, H.getTypeArgumentByIndex(t2, 0));
-      t2 = J.get$onMouseDown$x(t1.querySelector("#add2"));
-      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__pressButton$closure(), false, H.getTypeArgumentByIndex(t2, 0));
-      t2 = J.get$onMouseDown$x(t1.querySelector("#reset"));
-      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__pressResetButton$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onChange$x(t1.querySelector("#radioThraxis"));
       W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__changeCodeTreeReset$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onChange$x(t1.querySelector("#radioMadisons"));
@@ -6775,11 +6761,11 @@
       B.reset(null);
     }, function() {
       return B.changeCodeTreeReset(null);
-    }, "call$1", "call$0", "cbuautoleader__changeCodeTreeReset$closure", 0, 2, 6, 0],
+    }, "call$1", "call$0", "cbuautoleader__changeCodeTreeReset$closure", 0, 2, 5, 0],
     changeCodeTreeChance: [function($event) {
       B.changeCodeTree(null);
       B.pushOutput(null);
-    }, "call$1", "cbuautoleader__changeCodeTreeChance$closure", 2, 0, 14],
+    }, "call$1", "cbuautoleader__changeCodeTreeChance$closure", 2, 0, 13],
     reset: [function($event) {
       $.tree = "";
       B.pushOutput(null);
@@ -6788,7 +6774,7 @@
       P.print("-----Reset----");
     }, function() {
       return B.reset(null);
-    }, "call$1", "call$0", "cbuautoleader__reset$closure", 0, 2, 15, 0],
+    }, "call$1", "call$0", "cbuautoleader__reset$closure", 0, 2, 14, 0],
     move: [function($event) {
       var buttonValue, t1, t2;
       buttonValue = H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").value;
@@ -6804,7 +6790,7 @@
         B.pushOutput(null);
         P.print("Pressed " + H.S(buttonValue));
       }
-    }, "call$1", "cbuautoleader__move$closure", 2, 0, 4],
+    }, "call$1", "cbuautoleader__move$closure", 2, 0, 15],
     pushOutput: [function($event) {
       var t1, codeOutput, t2, t3;
       t1 = document;
@@ -6841,13 +6827,7 @@
         H.interceptedTypeCast(t1.querySelector("#add2"), "$isButtonElement").classList.remove("pressed-button");
     }, function() {
       return B.pushOutput(null);
-    }, "call$1", "call$0", "cbuautoleader__pushOutput$closure", 0, 2, 6, 0],
-    pressButton: [function($event) {
-      H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").classList.add("pressed-button");
-    }, "call$1", "cbuautoleader__pressButton$closure", 2, 0, 4],
-    pressResetButton: [function($event) {
-      H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").classList.add("pressed-reset-button");
-    }, "call$1", "cbuautoleader__pressResetButton$closure", 2, 0, 4]
+    }, "call$1", "call$0", "cbuautoleader__pushOutput$closure", 0, 2, 5, 0]
   }, 1]];
   setupProgram(dart, 0);
   // getInterceptor methods
@@ -6950,9 +6930,6 @@
   };
   J.get$onClick$x = function(receiver) {
     return J.getInterceptor$x(receiver).get$onClick(receiver);
-  };
-  J.get$onMouseDown$x = function(receiver) {
-    return J.getInterceptor$x(receiver).get$onMouseDown(receiver);
   };
   J.get$target$x = function(receiver) {
     return J.getInterceptor$x(receiver).get$target(receiver);
@@ -7265,7 +7242,7 @@
   Isolate = Isolate.$finishIsolateConstructor(Isolate);
   $ = new Isolate();
   init.metadata = [null];
-  init.types = [{func: 1}, {func: 1, v: true}, {func: 1, args: [,]}, {func: 1, v: true, args: [{func: 1, v: true}]}, {func: 1, v: true, args: [W.MouseEvent]}, {func: 1, ret: P.String, args: [P.int]}, {func: 1, v: true, opt: [W.Event]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, args: [{func: 1, v: true}]}, {func: 1, v: true, args: [P.Object], opt: [P.StackTrace]}, {func: 1, args: [,], opt: [,]}, {func: 1, v: true, args: [, P.StackTrace]}, {func: 1, args: [,,]}, {func: 1, v: true, args: [W.Event]}, {func: 1, v: true, opt: [W.MouseEvent]}];
+  init.types = [{func: 1}, {func: 1, v: true}, {func: 1, args: [,]}, {func: 1, v: true, args: [{func: 1, v: true}]}, {func: 1, ret: P.String, args: [P.int]}, {func: 1, v: true, opt: [W.Event]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, args: [{func: 1, v: true}]}, {func: 1, v: true, args: [P.Object], opt: [P.StackTrace]}, {func: 1, args: [,], opt: [,]}, {func: 1, v: true, args: [, P.StackTrace]}, {func: 1, args: [,,]}, {func: 1, v: true, args: [W.Event]}, {func: 1, v: true, opt: [W.MouseEvent]}, {func: 1, v: true, args: [W.MouseEvent]}];
   function convertToFastObject(properties) {
     function MyClass() {
     }

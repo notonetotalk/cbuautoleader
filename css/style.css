@@ -32,7 +32,9 @@ body{
   padding-bottom:10px;
   padding-left:15px;
   background-color:rgba(255,255,255,0);
-  margin:0px 20% 16px 20%;
+  width:80%;
+  margin:5% auto auto auto;
+  max-width:750px;
 }
 .input{
   margin-bottom:15px;
@@ -119,9 +121,19 @@ body{
 .button.reset-button{
   background-color:#785580;
 }
+.button:active{
+  background-color:#434343;
+  box-shadow:-1px -1px 1px 0px #363636 ;
+  color:#777777;
+}
 .button.pressed-button{
   background-color:#434343;
   box-shadow:-1px -1px 1px 0px #363636 ;
+  color:#777777;
+}
+.button.reset-button:active{
+  box-shadow:-1px -1px 1px 0px #363636 ;
+  background-color:#5b4260;
   color:#777777;
 }
 .button.reset-button.pressed-reset-button{

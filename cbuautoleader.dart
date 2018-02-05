@@ -8,18 +8,18 @@ final Map codeTreeChanceM = {"": "AAA (3.7%)", "0": "BBB (12.5%)", "00": "CCC (1
 Map codeTree;
 String tree;
 
+// Initalize program.
 void main() {
 
-	// Initalize program.
 	changeCodeTreeReset();
 	querySelector("#add0").onClick.listen(move);
 	querySelector("#add1").onClick.listen(move);
 	querySelector("#add2").onClick.listen(move);
 	querySelector("#reset").onClick.listen(reset);
-	querySelector("#add0").onMouseDown.listen(pressButton);
-	querySelector("#add1").onMouseDown.listen(pressButton);
-	querySelector("#add2").onMouseDown.listen(pressButton);
-	querySelector("#reset").onMouseDown.listen(pressResetButton);
+	//querySelector("#add0").onMouseDown.listen(pressButton);
+	//querySelector("#add1").onMouseDown.listen(pressButton);
+	//querySelector("#add2").onMouseDown.listen(pressButton);
+	//querySelector("#reset").onMouseDown.listen(pressResetButton);
 	querySelector("#radioThraxis").onChange.listen(changeCodeTreeReset);
 	querySelector("#radioMadisons").onChange.listen(changeCodeTreeReset);
 	querySelector("#checkCopy").onChange.listen(pushOutput);
