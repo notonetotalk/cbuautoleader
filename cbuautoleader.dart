@@ -114,29 +114,29 @@ void updateButtonStyles() {
 
 	if (codeTree[tree + "0"] == null) {
 
-		(querySelector("#add0") as ButtonElement).classes.add("pressed-button");
+		(querySelector("#add0") as ButtonElement).disabled = true;
 
 	} else {
 
-		(querySelector("#add0") as ButtonElement).classes.remove("pressed-button");
+		(querySelector("#add0") as ButtonElement).disabled = false;
 
 	}
 	if (codeTree[tree + "1"] == null) {
 
-		(querySelector("#add1") as ButtonElement).classes.add("pressed-button");
+		(querySelector("#add1") as ButtonElement).disabled = true;
 
 	} else {
 
-		(querySelector("#add1") as ButtonElement).classes.remove("pressed-button");
+		(querySelector("#add1") as ButtonElement).disabled = false;
 
 	}
 	if (codeTree[tree + "2"] == null) {
 
-		(querySelector("#add2") as ButtonElement).classes.add("pressed-button");
+		(querySelector("#add2") as ButtonElement).disabled = true;
 
 	} else {
 
-		(querySelector("#add2") as ButtonElement).classes.remove("pressed-button");
+		(querySelector("#add2") as ButtonElement).disabled = false;
 
 	}
 

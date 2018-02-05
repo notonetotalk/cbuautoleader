@@ -6806,25 +6806,25 @@
       if (t3 == null)
         return t3.$add();
       if (t2.$index(0, t3 + "0") == null)
-        H.interceptedTypeCast(t1.querySelector("#add0"), "$isButtonElement").classList.add("pressed-button");
+        H.interceptedTypeCast(t1.querySelector("#add0"), "$isButtonElement").disabled = true;
       else
-        H.interceptedTypeCast(t1.querySelector("#add0"), "$isButtonElement").classList.remove("pressed-button");
+        H.interceptedTypeCast(t1.querySelector("#add0"), "$isButtonElement").disabled = false;
       t2 = $.codeTree;
       t3 = $.tree;
       if (t3 == null)
         return t3.$add();
       if (t2.$index(0, t3 + "1") == null)
-        H.interceptedTypeCast(t1.querySelector("#add1"), "$isButtonElement").classList.add("pressed-button");
+        H.interceptedTypeCast(t1.querySelector("#add1"), "$isButtonElement").disabled = true;
       else
-        H.interceptedTypeCast(t1.querySelector("#add1"), "$isButtonElement").classList.remove("pressed-button");
+        H.interceptedTypeCast(t1.querySelector("#add1"), "$isButtonElement").disabled = false;
       t2 = $.codeTree;
       t3 = $.tree;
       if (t3 == null)
         return t3.$add();
       if (t2.$index(0, t3 + "2") == null)
-        H.interceptedTypeCast(t1.querySelector("#add2"), "$isButtonElement").classList.add("pressed-button");
+        H.interceptedTypeCast(t1.querySelector("#add2"), "$isButtonElement").disabled = true;
       else
-        H.interceptedTypeCast(t1.querySelector("#add2"), "$isButtonElement").classList.remove("pressed-button");
+        H.interceptedTypeCast(t1.querySelector("#add2"), "$isButtonElement").disabled = false;
     }, function() {
       return B.pushOutput(null);
     }, "call$1", "call$0", "cbuautoleader__pushOutput$closure", 0, 2, 5, 0]
