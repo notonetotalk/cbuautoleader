@@ -12,9 +12,9 @@ void main() {
 
 	// Initalize program.
 	changeCodeTreeReset();
-	querySelector("#add0").onClick.listen(add0);
-	querySelector("#add1").onClick.listen(add1);
-	querySelector("#add2").onClick.listen(add2);
+	querySelector("#add0").onClick.listen(move);
+	querySelector("#add1").onClick.listen(move);
+	querySelector("#add2").onClick.listen(move);
 	querySelector("#reset").onClick.listen(reset);
 	querySelector("#add0").onMouseDown.listen(pressButton);
 	querySelector("#add1").onMouseDown.listen(pressButton);
@@ -27,9 +27,9 @@ void main() {
 
 }
 
+// Set the appropriate code tree to follow based on user selection.
 void changeCodeTree([Event event]) {
 
-	// Sets the appropriate code tree to follow based on user selection.
 	if ((querySelector("#radioMadisons") as RadioButtonInputElement).checked) {
 
 		if ((querySelector("#checkChance") as CheckboxInputElement).checked) {
@@ -58,6 +58,7 @@ void changeCodeTree([Event event]) {
 
 }
 
+// Updates the branch key/value pairs and resets the node position.
 void changeCodeTreeReset([Event event]) {
 
 	changeCodeTree();
@@ -65,6 +66,7 @@ void changeCodeTreeReset([Event event]) {
 
 }
 
+// Updates the key/value pairs and retains the current node position.
 void changeCodeTreeChance(Event event) {
 
 	changeCodeTree();
@@ -72,17 +74,33 @@ void changeCodeTreeChance(Event event) {
 
 }
 
+// Resets the node position.
 void reset([MouseEvent event]) {
 
 	tree = "";
 	pushOutput();
 	if (event != null) {(event.target as ButtonElement).classes.remove("pressed-reset-button");}
+	print("-----Reset----");
 
 }
 
+// Move branch node position.
+void move(MouseEvent event) {
+
+	final String buttonValue = (event.target as ButtonElement).value;
+	if (codeTree[tree + buttonValue] != null) {
+	
+		tree = tree + buttonValue;
+		pushOutput();
+		print("Pressed ${buttonValue}");
+	
+	}
+
+}
+
+// Output the code at the current branch node, and copies the output to clipboard if option is selected.
 void pushOutput([Event event]) {
 
-	// Outputs the code at the current branch node, and copies the output to clipboard of option is selected.
 	final TextInputElement codeOutput = querySelector("#codeOutput");
 	codeOutput.value = codeTree[tree];
 	if ((querySelector("#checkCopy") as CheckboxInputElement).checked) {
@@ -91,28 +109,40 @@ void pushOutput([Event event]) {
 		document.execCommand("copy");
 	
 	}
-	greyOutButtons();
+	updateButtonStyles();
 
 }
 
-void greyOutButtons() {
-	//ButtonElement buttons = 
+// The following functions update the button styles for a visual indication of what options are available or what is being interacted with.
+void updateButtonStyles() {
+
 	if (codeTree[tree + "0"] == null) {
+
 		(querySelector("#add0") as ButtonElement).classes.add("pressed-button");
+
 	} else {
+
 		(querySelector("#add0") as ButtonElement).classes.remove("pressed-button");
+
 	}
 	if (codeTree[tree + "1"] == null) {
+
 		(querySelector("#add1") as ButtonElement).classes.add("pressed-button");
+
 	} else {
+
 		(querySelector("#add1") as ButtonElement).classes.remove("pressed-button");
+
 	}
 	if (codeTree[tree + "2"] == null) {
+
 		(querySelector("#add2") as ButtonElement).classes.add("pressed-button");
+
 	} else {
+
 		(querySelector("#add2") as ButtonElement).classes.remove("pressed-button");
+
 	}
-		
 
 }
 
@@ -125,26 +155,5 @@ void pressButton(MouseEvent event) {
 void pressResetButton(MouseEvent event) {
 
 	(event.target as ButtonElement).classes.add("pressed-reset-button");
-
-}
-
-void add0(MouseEvent event) {
-
-	tree = tree + "0";
-	pushOutput();
-
-}
-
-void add1(MouseEvent event) {
-
-	tree = tree + "1";
-	pushOutput();
-
-}
-
-void add2(MouseEvent event) {
-
-	tree = tree + "2";
-	pushOutput();
 
 }

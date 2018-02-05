@@ -3793,14 +3793,14 @@
     _AsyncRun__scheduleImmediateJsOverride: [function(callback) {
       ++init.globalState.topEventLoop._activeJsAsyncCount;
       self.scheduleImmediate(H.convertDartClosureToJS(new P._AsyncRun__scheduleImmediateJsOverride_internalCallback(callback), 0));
-    }, "call$1", "async__AsyncRun__scheduleImmediateJsOverride$closure", 2, 0, 4],
+    }, "call$1", "async__AsyncRun__scheduleImmediateJsOverride$closure", 2, 0, 3],
     _AsyncRun__scheduleImmediateWithSetImmediate: [function(callback) {
       ++init.globalState.topEventLoop._activeJsAsyncCount;
       self.setImmediate(H.convertDartClosureToJS(new P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback(callback), 0));
-    }, "call$1", "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", 2, 0, 4],
+    }, "call$1", "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", 2, 0, 3],
     _AsyncRun__scheduleImmediateWithTimer: [function(callback) {
       P.Timer__createTimer(C.Duration_0, callback);
-    }, "call$1", "async__AsyncRun__scheduleImmediateWithTimer$closure", 2, 0, 4],
+    }, "call$1", "async__AsyncRun__scheduleImmediateWithTimer$closure", 2, 0, 3],
     _registerErrorHandler: function(errorHandler, zone) {
       if (H.functionTypeTest(errorHandler, {func: 1, args: [P.Null, P.Null]})) {
         zone.toString;
@@ -6734,11 +6734,11 @@
       B.reset(null);
       t1 = document;
       t2 = J.get$onClick$x(t1.querySelector("#add0"));
-      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__add0$closure(), false, H.getTypeArgumentByIndex(t2, 0));
+      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__move$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onClick$x(t1.querySelector("#add1"));
-      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__add1$closure(), false, H.getTypeArgumentByIndex(t2, 0));
+      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__move$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onClick$x(t1.querySelector("#add2"));
-      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__add2$closure(), false, H.getTypeArgumentByIndex(t2, 0));
+      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__move$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onClick$x(t1.querySelector("#reset"));
       W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__reset$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onMouseDown$x(t1.querySelector("#add0"));
@@ -6785,9 +6785,26 @@
       B.pushOutput(null);
       if ($event != null)
         H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").classList.remove("pressed-reset-button");
+      P.print("-----Reset----");
     }, function() {
       return B.reset(null);
     }, "call$1", "call$0", "cbuautoleader__reset$closure", 0, 2, 15, 0],
+    move: [function($event) {
+      var buttonValue, t1, t2;
+      buttonValue = H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").value;
+      t1 = $.codeTree;
+      t2 = $.tree;
+      if (t2 == null)
+        return t2.$add();
+      if (t1.$index(0, J.$add$ns(t2, buttonValue)) != null) {
+        t1 = $.tree;
+        if (t1 == null)
+          return t1.$add();
+        $.tree = J.$add$ns(t1, buttonValue);
+        B.pushOutput(null);
+        P.print("Pressed " + H.S(buttonValue));
+      }
+    }, "call$1", "cbuautoleader__move$closure", 2, 0, 4],
     pushOutput: [function($event) {
       var t1, codeOutput, t2, t3;
       t1 = document;
@@ -6827,31 +6844,10 @@
     }, "call$1", "call$0", "cbuautoleader__pushOutput$closure", 0, 2, 6, 0],
     pressButton: [function($event) {
       H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").classList.add("pressed-button");
-    }, "call$1", "cbuautoleader__pressButton$closure", 2, 0, 3],
+    }, "call$1", "cbuautoleader__pressButton$closure", 2, 0, 4],
     pressResetButton: [function($event) {
       H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").classList.add("pressed-reset-button");
-    }, "call$1", "cbuautoleader__pressResetButton$closure", 2, 0, 3],
-    add0: [function($event) {
-      var t1 = $.tree;
-      if (t1 == null)
-        return t1.$add();
-      $.tree = t1 + "0";
-      B.pushOutput(null);
-    }, "call$1", "cbuautoleader__add0$closure", 2, 0, 3],
-    add1: [function($event) {
-      var t1 = $.tree;
-      if (t1 == null)
-        return t1.$add();
-      $.tree = t1 + "1";
-      B.pushOutput(null);
-    }, "call$1", "cbuautoleader__add1$closure", 2, 0, 3],
-    add2: [function($event) {
-      var t1 = $.tree;
-      if (t1 == null)
-        return t1.$add();
-      $.tree = t1 + "2";
-      B.pushOutput(null);
-    }, "call$1", "cbuautoleader__add2$closure", 2, 0, 3]
+    }, "call$1", "cbuautoleader__pressResetButton$closure", 2, 0, 4]
   }, 1]];
   setupProgram(dart, 0);
   // getInterceptor methods
@@ -7269,7 +7265,7 @@
   Isolate = Isolate.$finishIsolateConstructor(Isolate);
   $ = new Isolate();
   init.metadata = [null];
-  init.types = [{func: 1}, {func: 1, v: true}, {func: 1, args: [,]}, {func: 1, v: true, args: [W.MouseEvent]}, {func: 1, v: true, args: [{func: 1, v: true}]}, {func: 1, ret: P.String, args: [P.int]}, {func: 1, v: true, opt: [W.Event]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, args: [{func: 1, v: true}]}, {func: 1, v: true, args: [P.Object], opt: [P.StackTrace]}, {func: 1, args: [,], opt: [,]}, {func: 1, v: true, args: [, P.StackTrace]}, {func: 1, args: [,,]}, {func: 1, v: true, args: [W.Event]}, {func: 1, v: true, opt: [W.MouseEvent]}];
+  init.types = [{func: 1}, {func: 1, v: true}, {func: 1, args: [,]}, {func: 1, v: true, args: [{func: 1, v: true}]}, {func: 1, v: true, args: [W.MouseEvent]}, {func: 1, ret: P.String, args: [P.int]}, {func: 1, v: true, opt: [W.Event]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, args: [{func: 1, v: true}]}, {func: 1, v: true, args: [P.Object], opt: [P.StackTrace]}, {func: 1, args: [,], opt: [,]}, {func: 1, v: true, args: [, P.StackTrace]}, {func: 1, args: [,,]}, {func: 1, v: true, args: [W.Event]}, {func: 1, v: true, opt: [W.MouseEvent]}];
   function convertToFastObject(properties) {
     function MyClass() {
     }
