@@ -121,22 +121,12 @@ body{
 .button.reset-button{
   background-color:#785580;
 }
-.button:active{
+.button:active, .button.pressed-button{
   background-color:#434343;
   box-shadow:-1px -1px 1px 0px #363636 ;
   color:#777777;
 }
-.button.pressed-button{
-  background-color:#434343;
-  box-shadow:-1px -1px 1px 0px #363636 ;
-  color:#777777;
-}
-.button.reset-button:active{
-  box-shadow:-1px -1px 1px 0px #363636 ;
-  background-color:#5b4260;
-  color:#777777;
-}
-.button.reset-button.pressed-reset-button{
+.button.reset-button:active, .button.reset-button.pressed-reset-button{
   box-shadow:-1px -1px 1px 0px #363636 ;
   background-color:#5b4260;
   color:#777777;

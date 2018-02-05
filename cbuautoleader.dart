@@ -12,14 +12,10 @@ String tree;
 void main() {
 
 	changeCodeTreeReset();
-	querySelector("#add0").onClick.listen(move);
-	querySelector("#add1").onClick.listen(move);
-	querySelector("#add2").onClick.listen(move);
+	querySelector("#add0").onClick.listen(moveNode);
+	querySelector("#add1").onClick.listen(moveNode);
+	querySelector("#add2").onClick.listen(moveNode);
 	querySelector("#reset").onClick.listen(reset);
-	//querySelector("#add0").onMouseDown.listen(pressButton);
-	//querySelector("#add1").onMouseDown.listen(pressButton);
-	//querySelector("#add2").onMouseDown.listen(pressButton);
-	//querySelector("#reset").onMouseDown.listen(pressResetButton);
 	querySelector("#radioThraxis").onChange.listen(changeCodeTreeReset);
 	querySelector("#radioMadisons").onChange.listen(changeCodeTreeReset);
 	querySelector("#checkCopy").onChange.listen(pushOutput);
@@ -85,7 +81,7 @@ void reset([MouseEvent event]) {
 }
 
 // Move branch node position.
-void move(MouseEvent event) {
+void moveNode(MouseEvent event) {
 
 	final String buttonValue = (event.target as ButtonElement).value;
 	if (codeTree[tree + buttonValue] != null) {
@@ -113,7 +109,7 @@ void pushOutput([Event event]) {
 
 }
 
-// The following functions update the button styles for a visual indication of what options are available or what is being interacted with.
+// The following functions update the button styles for a visual indication of what options are available.
 void updateButtonStyles() {
 
 	if (codeTree[tree + "0"] == null) {
@@ -143,17 +139,5 @@ void updateButtonStyles() {
 		(querySelector("#add2") as ButtonElement).classes.remove("pressed-button");
 
 	}
-
-}
-
-void pressButton(MouseEvent event) {
-
-	(event.target as ButtonElement).classes.add("pressed-button");
-
-}
-
-void pressResetButton(MouseEvent event) {
-
-	(event.target as ButtonElement).classes.add("pressed-reset-button");
 
 }

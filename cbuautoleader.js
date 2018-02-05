@@ -6728,11 +6728,11 @@
       B.reset(null);
       t1 = document;
       t2 = J.get$onClick$x(t1.querySelector("#add0"));
-      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__move$closure(), false, H.getTypeArgumentByIndex(t2, 0));
+      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__moveNode$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onClick$x(t1.querySelector("#add1"));
-      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__move$closure(), false, H.getTypeArgumentByIndex(t2, 0));
+      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__moveNode$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onClick$x(t1.querySelector("#add2"));
-      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__move$closure(), false, H.getTypeArgumentByIndex(t2, 0));
+      W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__moveNode$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onClick$x(t1.querySelector("#reset"));
       W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__reset$closure(), false, H.getTypeArgumentByIndex(t2, 0));
       t2 = J.get$onChange$x(t1.querySelector("#radioThraxis"));
@@ -6775,7 +6775,7 @@
     }, function() {
       return B.reset(null);
     }, "call$1", "call$0", "cbuautoleader__reset$closure", 0, 2, 14, 0],
-    move: [function($event) {
+    moveNode: [function($event) {
       var buttonValue, t1, t2;
       buttonValue = H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").value;
       t1 = $.codeTree;
@@ -6790,7 +6790,7 @@
         B.pushOutput(null);
         P.print("Pressed " + H.S(buttonValue));
       }
-    }, "call$1", "cbuautoleader__move$closure", 2, 0, 15],
+    }, "call$1", "cbuautoleader__moveNode$closure", 2, 0, 15],
     pushOutput: [function($event) {
       var t1, codeOutput, t2, t3;
       t1 = document;
