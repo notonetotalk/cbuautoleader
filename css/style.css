@@ -171,6 +171,9 @@ body{
     opacity:1;
   }
 }
+.cell.links{
+  margin:0px 0px 50px 0px;
+}
 button::-moz-focus-inner {
   border: 0 !important;
 }
