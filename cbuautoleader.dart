@@ -105,7 +105,7 @@ void pushOutput([Event event]) {
 
 }
 
-// The following function update the button styles for a visual indication of what options are available.
+// The following function updates the button styles for a visual indication of what options are available.
 void updateButtonStyles() {
 
 	if (codeTree[tree + "0"] == null) {
