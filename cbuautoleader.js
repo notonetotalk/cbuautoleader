@@ -586,7 +586,7 @@
       toString$0: ["super$Interceptor$toString", function(receiver) {
         return H.Primitives_objectToHumanReadableString(receiver);
       }],
-      "%": "Blob|Client|DOMError|File|FileError|MediaError|NavigatorUserMediaError|PositionError|SQLError|SVGAnimatedLength|SVGAnimatedLengthList|SVGAnimatedNumber|SVGAnimatedNumberList|SVGAnimatedString|WindowClient"
+      "%": "Blob|DOMError|File|FileError|MediaError|NavigatorUserMediaError|PositionError|SQLError|SVGAnimatedNumberList|SVGAnimatedString"
     },
     JSBool: {
       "^": "Interceptor;",
@@ -818,8 +818,7 @@
       substring$2: function(receiver, startIndex, endIndex) {
         if (endIndex == null)
           endIndex = receiver.length;
-        if (typeof endIndex !== "number" || Math.floor(endIndex) !== endIndex)
-          H.throwExpression(H.argumentErrorValue(endIndex));
+        H.checkInt(endIndex);
         if (startIndex < 0)
           throw H.wrapException(P.RangeError$value(startIndex, null, null));
         if (typeof endIndex !== "number")
@@ -2106,6 +2105,11 @@
     },
     argumentErrorValue: function(object) {
       return new P.ArgumentError(true, object, null, null);
+    },
+    checkInt: function(value) {
+      if (typeof value !== "number" || Math.floor(value) !== value)
+        throw H.wrapException(H.argumentErrorValue(value));
+      return value;
     },
     wrapException: function(ex) {
       var wrapper;
@@ -5528,7 +5532,7 @@
       }
     },
     _ListQueueIterator: {
-      "^": "Object;_queue,_end,_modificationCount,_collection$_position,_collection$_current",
+      "^": "Object;_queue,_end,_modificationCount,_position,_collection$_current",
       get$current: function() {
         return this._collection$_current;
       },
@@ -5537,7 +5541,7 @@
         t1 = this._queue;
         if (this._modificationCount !== t1._modificationCount)
           H.throwExpression(new P.ConcurrentModificationError(t1));
-        t2 = this._collection$_position;
+        t2 = this._position;
         if (t2 === this._end) {
           this._collection$_current = null;
           return false;
@@ -5547,7 +5551,7 @@
         if (t2 >= t3)
           return H.ioore(t1, t2);
         this._collection$_current = t1[t2];
-        this._collection$_position = (t2 + 1 & t3 - 1) >>> 0;
+        this._position = (t2 + 1 & t3 - 1) >>> 0;
         return true;
       }
     },
@@ -5959,11 +5963,6 @@
     }
   }], ["dart.dom.html", "dart:html",, W, {
     "^": "",
-    _JenkinsSmiHash_combine: function(hash, value) {
-      hash = 536870911 & hash + value;
-      hash = 536870911 & hash + ((524287 & hash) << 10);
-      return hash ^ hash >>> 6;
-    },
     _convertNativeToDart_EventTarget: function(e) {
       var $window;
       if (e == null)
@@ -5982,9 +5981,12 @@
         return callback;
       return t1.bindUnaryCallback$2$runGuarded(callback, true);
     },
+    querySelector: function(selectors) {
+      return document.querySelector(selectors);
+    },
     HtmlElement: {
       "^": "Element;",
-      "%": "HTMLBRElement|HTMLCanvasElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDirectoryElement|HTMLDivElement|HTMLEmbedElement|HTMLFieldSetElement|HTMLFontElement|HTMLFrameElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLIFrameElement|HTMLImageElement|HTMLKeygenElement|HTMLLabelElement|HTMLLegendElement|HTMLLinkElement|HTMLMapElement|HTMLMarqueeElement|HTMLMenuElement|HTMLMenuItemElement|HTMLMetaElement|HTMLModElement|HTMLOListElement|HTMLObjectElement|HTMLOptGroupElement|HTMLParagraphElement|HTMLPictureElement|HTMLPreElement|HTMLQuoteElement|HTMLScriptElement|HTMLShadowElement|HTMLSlotElement|HTMLSourceElement|HTMLSpanElement|HTMLStyleElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement;HTMLElement"
+      "%": "HTMLBRElement|HTMLCanvasElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDirectoryElement|HTMLDivElement|HTMLEmbedElement|HTMLFontElement|HTMLFrameElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLIFrameElement|HTMLImageElement|HTMLLabelElement|HTMLLegendElement|HTMLMapElement|HTMLMarqueeElement|HTMLMenuElement|HTMLMetaElement|HTMLModElement|HTMLOListElement|HTMLObjectElement|HTMLParagraphElement|HTMLPictureElement|HTMLPreElement|HTMLQuoteElement|HTMLScriptElement|HTMLShadowElement|HTMLSlotElement|HTMLSourceElement|HTMLSpanElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement;HTMLElement"
     },
     AnchorElement: {
       "^": "HtmlElement;target=",
@@ -6013,7 +6015,7 @@
       "%": "HTMLBodyElement"
     },
     ButtonElement: {
-      "^": "HtmlElement;value}",
+      "^": "HtmlElement;disabled},value}",
       $isButtonElement: 1,
       "%": "HTMLButtonElement"
     },
@@ -6040,10 +6042,6 @@
         return String(receiver);
       },
       "%": "DOMException"
-    },
-    DomTokenList: {
-      "^": "Interceptor;length=",
-      "%": "DOMTokenList"
     },
     Element: {
       "^": "Node;",
@@ -6082,30 +6080,44 @@
         return receiver.removeEventListener(type, H.convertDartClosureToJS(listener, 1), false);
       },
       $isEventTarget: 1,
-      "%": "MediaStream|MessagePort;EventTarget"
+      "%": "MediaStream;EventTarget"
+    },
+    FieldSetElement: {
+      "^": "HtmlElement;disabled}",
+      "%": "HTMLFieldSetElement"
     },
     FormElement: {
       "^": "HtmlElement;length=,target=",
       "%": "HTMLFormElement"
     },
     InputElement: {
-      "^": "HtmlElement;value}",
+      "^": "HtmlElement;checked=,disabled},value}",
       select$0: function(receiver) {
         return receiver.select();
       },
       $isInterceptor: 1,
       $isEventTarget: 1,
-      $isRadioButtonInputElement: 1,
-      $isCheckboxInputElement: 1,
       "%": "HTMLInputElement"
+    },
+    KeygenElement: {
+      "^": "HtmlElement;disabled}",
+      "%": "HTMLKeygenElement"
     },
     LIElement: {
       "^": "HtmlElement;value}",
       "%": "HTMLLIElement"
     },
+    LinkElement: {
+      "^": "HtmlElement;disabled}",
+      "%": "HTMLLinkElement"
+    },
     MediaElement: {
       "^": "HtmlElement;error=",
       "%": "HTMLAudioElement|HTMLMediaElement|HTMLVideoElement"
+    },
+    MenuItemElement: {
+      "^": "HtmlElement;checked=,disabled}",
+      "%": "HTMLMenuItemElement"
     },
     MeterElement: {
       "^": "HtmlElement;value}",
@@ -6129,11 +6141,14 @@
         var value = receiver.nodeValue;
         return value == null ? this.super$Interceptor$toString(receiver) : value;
       },
-      $isObject: 1,
       "%": "Attr|Document|HTMLDocument|XMLDocument;Node"
     },
+    OptGroupElement: {
+      "^": "HtmlElement;disabled}",
+      "%": "HTMLOptGroupElement"
+    },
     OptionElement: {
-      "^": "HtmlElement;value}",
+      "^": "HtmlElement;disabled},value}",
       "%": "HTMLOptionElement"
     },
     OutputElement: {
@@ -6153,15 +6168,19 @@
       "%": "HTMLProgressElement"
     },
     SelectElement: {
-      "^": "HtmlElement;length=,value}",
+      "^": "HtmlElement;disabled},length=,value}",
       "%": "HTMLSelectElement"
     },
     SpeechRecognitionError: {
       "^": "Event;error=",
       "%": "SpeechRecognitionError"
     },
+    StyleElement: {
+      "^": "HtmlElement;disabled}",
+      "%": "HTMLStyleElement"
+    },
     TextAreaElement: {
-      "^": "HtmlElement;value}",
+      "^": "HtmlElement;disabled},value}",
       select$0: function(receiver) {
         return receiver.select();
       },
@@ -6177,53 +6196,6 @@
       $isEventTarget: 1,
       "%": "DOMWindow|Window"
     },
-    _ClientRect: {
-      "^": "Interceptor;height=,left=,top=,width=",
-      toString$0: function(receiver) {
-        return "Rectangle (" + H.S(receiver.left) + ", " + H.S(receiver.top) + ") " + H.S(receiver.width) + " x " + H.S(receiver.height);
-      },
-      $eq: function(receiver, other) {
-        var t1, t2, t3;
-        if (other == null)
-          return false;
-        t1 = J.getInterceptor(other);
-        if (!t1.$isRectangle)
-          return false;
-        t2 = receiver.left;
-        t3 = t1.get$left(other);
-        if (t2 == null ? t3 == null : t2 === t3) {
-          t2 = receiver.top;
-          t3 = t1.get$top(other);
-          if (t2 == null ? t3 == null : t2 === t3) {
-            t2 = receiver.width;
-            t3 = t1.get$width(other);
-            if (t2 == null ? t3 == null : t2 === t3) {
-              t2 = receiver.height;
-              t1 = t1.get$height(other);
-              t1 = t2 == null ? t1 == null : t2 === t1;
-            } else
-              t1 = false;
-          } else
-            t1 = false;
-        } else
-          t1 = false;
-        return t1;
-      },
-      get$hashCode: function(receiver) {
-        var t1, t2, t3, t4, hash;
-        t1 = J.get$hashCode$(receiver.left);
-        t2 = J.get$hashCode$(receiver.top);
-        t3 = J.get$hashCode$(receiver.width);
-        t4 = J.get$hashCode$(receiver.height);
-        t4 = W._JenkinsSmiHash_combine(W._JenkinsSmiHash_combine(W._JenkinsSmiHash_combine(W._JenkinsSmiHash_combine(0, t1), t2), t3), t4);
-        hash = 536870911 & t4 + ((67108863 & t4) << 3);
-        hash ^= hash >>> 11;
-        return 536870911 & hash + ((16383 & hash) << 15);
-      },
-      $isRectangle: 1,
-      $asRectangle: Isolate.functionThatReturnsNull,
-      "%": "ClientRect"
-    },
     _DocumentType: {
       "^": "Node;",
       $isInterceptor: 1,
@@ -6234,70 +6206,6 @@
       $isEventTarget: 1,
       $isInterceptor: 1,
       "%": "HTMLFrameSetElement"
-    },
-    _NamedNodeMap: {
-      "^": "Interceptor_ListMixin_ImmutableListMixin;",
-      get$length: function(receiver) {
-        return receiver.length;
-      },
-      $index: function(receiver, index) {
-        if (index >>> 0 !== index || index >= receiver.length)
-          throw H.wrapException(P.IndexError$(index, receiver, null, null, null));
-        return receiver[index];
-      },
-      $indexSet: function(receiver, index, value) {
-        throw H.wrapException(new P.UnsupportedError("Cannot assign element of immutable List."));
-      },
-      elementAt$1: function(receiver, index) {
-        if (index < 0 || index >= receiver.length)
-          return H.ioore(receiver, index);
-        return receiver[index];
-      },
-      $isList: 1,
-      $asList: function() {
-        return [W.Node];
-      },
-      $isEfficientLengthIterable: 1,
-      $asEfficientLengthIterable: function() {
-        return [W.Node];
-      },
-      $isJavaScriptIndexingBehavior: 1,
-      $asJavaScriptIndexingBehavior: function() {
-        return [W.Node];
-      },
-      $isJSIndexable: 1,
-      $asJSIndexable: function() {
-        return [W.Node];
-      },
-      "%": "MozNamedAttrMap|NamedNodeMap"
-    },
-    Interceptor_ListMixin: {
-      "^": "Interceptor+ListMixin;",
-      $asList: function() {
-        return [W.Node];
-      },
-      $asEfficientLengthIterable: function() {
-        return [W.Node];
-      },
-      $isList: 1,
-      $isEfficientLengthIterable: 1
-    },
-    Interceptor_ListMixin_ImmutableListMixin: {
-      "^": "Interceptor_ListMixin+ImmutableListMixin;",
-      $asList: function() {
-        return [W.Node];
-      },
-      $asEfficientLengthIterable: function() {
-        return [W.Node];
-      },
-      $isList: 1,
-      $isEfficientLengthIterable: 1
-    },
-    _ServiceWorker: {
-      "^": "EventTarget;",
-      $isEventTarget: 1,
-      $isInterceptor: 1,
-      "%": "ServiceWorker"
     },
     _EventStream: {
       "^": "Stream;$ti",
@@ -6374,35 +6282,6 @@
       "^": "Closure:2;onData",
       call$1: function(e) {
         return this.onData.call$1(e);
-      }
-    },
-    ImmutableListMixin: {
-      "^": "Object;$ti",
-      get$iterator: function(receiver) {
-        return new W.FixedSizeListIterator(receiver, this.get$length(receiver), -1, null);
-      },
-      $isList: 1,
-      $asList: null,
-      $isEfficientLengthIterable: 1,
-      $asEfficientLengthIterable: null
-    },
-    FixedSizeListIterator: {
-      "^": "Object;_array,_html$_length,_position,_html$_current",
-      moveNext$0: function() {
-        var nextPosition, t1;
-        nextPosition = this._position + 1;
-        t1 = this._html$_length;
-        if (nextPosition < t1) {
-          this._html$_current = J.$index$asx(this._array, nextPosition);
-          this._position = nextPosition;
-          return true;
-        }
-        this._html$_current = null;
-        this._position = t1;
-        return false;
-      },
-      get$current: function() {
-        return this._html$_current;
       }
     },
     _DOMWindowCrossFrame: {
@@ -6527,59 +6406,6 @@
       $isInterceptor: 1,
       "%": "SVGImageElement"
     },
-    Length: {
-      "^": "Interceptor;",
-      $isObject: 1,
-      "%": "SVGLength"
-    },
-    LengthList: {
-      "^": "Interceptor_ListMixin_ImmutableListMixin0;",
-      get$length: function(receiver) {
-        return receiver.length;
-      },
-      $index: function(receiver, index) {
-        if (index >>> 0 !== index || index >= receiver.length)
-          throw H.wrapException(P.IndexError$(index, receiver, null, null, null));
-        return receiver.getItem(index);
-      },
-      $indexSet: function(receiver, index, value) {
-        throw H.wrapException(new P.UnsupportedError("Cannot assign element of immutable List."));
-      },
-      elementAt$1: function(receiver, index) {
-        return this.$index(receiver, index);
-      },
-      $isList: 1,
-      $asList: function() {
-        return [P.Length];
-      },
-      $isEfficientLengthIterable: 1,
-      $asEfficientLengthIterable: function() {
-        return [P.Length];
-      },
-      "%": "SVGLengthList"
-    },
-    Interceptor_ListMixin0: {
-      "^": "Interceptor+ListMixin;",
-      $asList: function() {
-        return [P.Length];
-      },
-      $asEfficientLengthIterable: function() {
-        return [P.Length];
-      },
-      $isList: 1,
-      $isEfficientLengthIterable: 1
-    },
-    Interceptor_ListMixin_ImmutableListMixin0: {
-      "^": "Interceptor_ListMixin0+ImmutableListMixin;",
-      $asList: function() {
-        return [P.Length];
-      },
-      $asEfficientLengthIterable: function() {
-        return [P.Length];
-      },
-      $isList: 1,
-      $isEfficientLengthIterable: 1
-    },
     MarkerElement: {
       "^": "SvgElement;",
       $isInterceptor: 1,
@@ -6589,59 +6415,6 @@
       "^": "SvgElement;",
       $isInterceptor: 1,
       "%": "SVGMaskElement"
-    },
-    Number: {
-      "^": "Interceptor;",
-      $isObject: 1,
-      "%": "SVGNumber"
-    },
-    NumberList: {
-      "^": "Interceptor_ListMixin_ImmutableListMixin1;",
-      get$length: function(receiver) {
-        return receiver.length;
-      },
-      $index: function(receiver, index) {
-        if (index >>> 0 !== index || index >= receiver.length)
-          throw H.wrapException(P.IndexError$(index, receiver, null, null, null));
-        return receiver.getItem(index);
-      },
-      $indexSet: function(receiver, index, value) {
-        throw H.wrapException(new P.UnsupportedError("Cannot assign element of immutable List."));
-      },
-      elementAt$1: function(receiver, index) {
-        return this.$index(receiver, index);
-      },
-      $isList: 1,
-      $asList: function() {
-        return [P.Number];
-      },
-      $isEfficientLengthIterable: 1,
-      $asEfficientLengthIterable: function() {
-        return [P.Number];
-      },
-      "%": "SVGNumberList"
-    },
-    Interceptor_ListMixin1: {
-      "^": "Interceptor+ListMixin;",
-      $asList: function() {
-        return [P.Number];
-      },
-      $asEfficientLengthIterable: function() {
-        return [P.Number];
-      },
-      $isList: 1,
-      $isEfficientLengthIterable: 1
-    },
-    Interceptor_ListMixin_ImmutableListMixin1: {
-      "^": "Interceptor_ListMixin1+ImmutableListMixin;",
-      $asList: function() {
-        return [P.Number];
-      },
-      $asEfficientLengthIterable: function() {
-        return [P.Number];
-      },
-      $isList: 1,
-      $isEfficientLengthIterable: 1
     },
     PatternElement: {
       "^": "SvgElement;",
@@ -6653,6 +6426,10 @@
       $isInterceptor: 1,
       "%": "SVGScriptElement"
     },
+    StyleElement0: {
+      "^": "SvgElement;disabled}",
+      "%": "SVGStyleElement"
+    },
     SvgElement: {
       "^": "Element;",
       get$onChange: function(receiver) {
@@ -6663,7 +6440,7 @@
       },
       $isEventTarget: 1,
       $isInterceptor: 1,
-      "%": "SVGComponentTransferFunctionElement|SVGDescElement|SVGDiscardElement|SVGFEDistantLightElement|SVGFEFuncAElement|SVGFEFuncBElement|SVGFEFuncGElement|SVGFEFuncRElement|SVGFEMergeNodeElement|SVGFEPointLightElement|SVGFESpotLightElement|SVGMetadataElement|SVGStopElement|SVGStyleElement|SVGTitleElement;SVGElement"
+      "%": "SVGComponentTransferFunctionElement|SVGDescElement|SVGDiscardElement|SVGFEDistantLightElement|SVGFEFuncAElement|SVGFEFuncBElement|SVGFEFuncGElement|SVGFEFuncRElement|SVGFEMergeNodeElement|SVGFEPointLightElement|SVGFESpotLightElement|SVGMetadataElement|SVGStopElement|SVGTitleElement;SVGElement"
     },
     SvgSvgElement: {
       "^": "GraphicsElement;",
@@ -6725,7 +6502,9 @@
     main: [function() {
       var t1, t2;
       B.changeCodeTree(null);
-      B.reset(null);
+      $.tree = "";
+      B.pushOutput(null);
+      P.print("-----Reset----");
       t1 = document;
       t2 = J.get$onClick$x(t1.querySelector("#add0"));
       W._EventStreamSubscription$(t2._html$_target, t2._eventType, B.cbuautoleader__moveNode$closure(), false, H.getTypeArgumentByIndex(t2, 0));
@@ -6745,20 +6524,21 @@
       W._EventStreamSubscription$(t1._html$_target, t1._eventType, B.cbuautoleader__changeCodeTreeChance$closure(), false, H.getTypeArgumentByIndex(t1, 0));
     }, "call$0", "cbuautoleader__main$closure", 0, 0, 1],
     changeCodeTree: function($event) {
-      var t1 = document;
-      if (H.interceptedTypeCast(t1.querySelector("#radioMadisons"), "$isRadioButtonInputElement").checked === true)
-        if (H.interceptedTypeCast(t1.querySelector("#checkChance"), "$isCheckboxInputElement").checked === true)
+      if (J.get$checked$x($.$get$radioMadisons()) === true)
+        if (J.get$checked$x($.$get$checkChance()) === true)
           $.codeTree = $.$get$codeTreeChanceM();
         else
           $.codeTree = $.$get$codeTreeM();
-      else if (H.interceptedTypeCast(t1.querySelector("#checkChance"), "$isCheckboxInputElement").checked === true)
+      else if (J.get$checked$x($.$get$checkChance()) === true)
         $.codeTree = $.$get$codeTreeChanceT();
       else
         $.codeTree = $.$get$codeTreeT();
     },
     changeCodeTreeReset: [function($event) {
       B.changeCodeTree(null);
-      B.reset(null);
+      $.tree = "";
+      B.pushOutput(null);
+      P.print("-----Reset----");
     }, function() {
       return B.changeCodeTreeReset(null);
     }, "call$1", "call$0", "cbuautoleader__changeCodeTreeReset$closure", 0, 2, 5, 0],
@@ -6769,8 +6549,6 @@
     reset: [function($event) {
       $.tree = "";
       B.pushOutput(null);
-      if ($event != null)
-        H.interceptedTypeCast(J.get$target$x($event), "$isButtonElement").classList.remove("pressed-reset-button");
       P.print("-----Reset----");
     }, function() {
       return B.reset(null);
@@ -6786,39 +6564,37 @@
       P.print("Pressed " + H.S(buttonValue));
     }, "call$1", "cbuautoleader__moveNode$closure", 2, 0, 15],
     pushOutput: [function($event) {
-      var t1, codeOutput, t2, t3;
-      t1 = document;
-      codeOutput = t1.querySelector("#codeOutput");
-      t2 = J.getInterceptor$x(codeOutput);
-      t2.set$value(codeOutput, $.codeTree.$index(0, $.tree));
-      if (H.interceptedTypeCast(t1.querySelector("#checkCopy"), "$isCheckboxInputElement").checked === true) {
-        t2.select$0(codeOutput);
-        t1.execCommand("copy");
+      var t1, t2;
+      t1 = $.$get$codeOutput();
+      J.set$value$x(t1, $.codeTree.$index(0, $.tree));
+      if (J.get$checked$x($.$get$checkCopy()) === true) {
+        J.select$0$x(t1);
+        document.execCommand("copy");
       }
-      t2 = $.codeTree;
-      t3 = $.tree;
-      if (t3 == null)
-        return t3.$add();
-      if (t2.$index(0, t3 + "0") == null)
-        H.interceptedTypeCast(t1.querySelector("#add0"), "$isButtonElement").disabled = true;
+      t1 = $.codeTree;
+      t2 = $.tree;
+      if (t2 == null)
+        return t2.$add();
+      if (t1.$index(0, t2 + "0") == null)
+        J.set$disabled$x($.$get$add0(), true);
       else
-        H.interceptedTypeCast(t1.querySelector("#add0"), "$isButtonElement").disabled = false;
-      t2 = $.codeTree;
-      t3 = $.tree;
-      if (t3 == null)
-        return t3.$add();
-      if (t2.$index(0, t3 + "1") == null)
-        H.interceptedTypeCast(t1.querySelector("#add1"), "$isButtonElement").disabled = true;
+        J.set$disabled$x($.$get$add0(), false);
+      t1 = $.codeTree;
+      t2 = $.tree;
+      if (t2 == null)
+        return t2.$add();
+      if (t1.$index(0, t2 + "1") == null)
+        J.set$disabled$x($.$get$add1(), true);
       else
-        H.interceptedTypeCast(t1.querySelector("#add1"), "$isButtonElement").disabled = false;
-      t2 = $.codeTree;
-      t3 = $.tree;
-      if (t3 == null)
-        return t3.$add();
-      if (t2.$index(0, t3 + "2") == null)
-        H.interceptedTypeCast(t1.querySelector("#add2"), "$isButtonElement").disabled = true;
+        J.set$disabled$x($.$get$add1(), false);
+      t1 = $.codeTree;
+      t2 = $.tree;
+      if (t2 == null)
+        return t2.$add();
+      if (t1.$index(0, t2 + "2") == null)
+        J.set$disabled$x($.$get$add2(), true);
       else
-        H.interceptedTypeCast(t1.querySelector("#add2"), "$isButtonElement").disabled = false;
+        J.set$disabled$x($.$get$add2(), false);
     }, function() {
       return B.pushOutput(null);
     }, "call$1", "call$0", "cbuautoleader__pushOutput$closure", 0, 2, 5, 0]
@@ -6910,6 +6686,15 @@
       return receiver;
     return J.getNativeInterceptor(receiver);
   };
+  J.set$disabled$x = function(receiver, value) {
+    return J.getInterceptor$x(receiver).set$disabled(receiver, value);
+  };
+  J.set$value$x = function(receiver, value) {
+    return J.getInterceptor$x(receiver).set$value(receiver, value);
+  };
+  J.get$checked$x = function(receiver) {
+    return J.getInterceptor$x(receiver).get$checked(receiver);
+  };
   J.get$error$x = function(receiver) {
     return J.getInterceptor$x(receiver).get$error(receiver);
   };
@@ -6956,6 +6741,9 @@
   };
   J.map$1$ax = function(receiver, a0) {
     return J.getInterceptor$ax(receiver).map$1(receiver, a0);
+  };
+  J.select$0$x = function(receiver) {
+    return J.getInterceptor$x(receiver).select$0(receiver);
   };
   J.get$hashCode$ = function(receiver) {
     return J.getInterceptor(receiver).get$hashCode(receiver);
@@ -7232,7 +7020,21 @@
     return P.LinkedHashMap__makeLiteral(["", "AAA (3.7%)", "0", "BBB (12.5%)", "00", "CCC (100%)", "01", "BCC (33.3%), or if not, try CBC.", "011", "CBC (50%), or if not, CCB.", "0111", "CCB (100%)", "02", "BBC (33.3%), or if not, try BCB.", "021", "BCB (50%), or if not, CBB.", "0211", "CBB (100%)", "1", "BBB (0%)", "10", "ACC (33.3%), or if not, try CAC.", "101", "CAC (50%), or if not, CCA.", "1011", "CCA (100%)", "11", "ABC (16.7%)", "110", "BCA (50%), or if not, CAB.", "1100", "CAB (100%)", "111", "ACB (33.3%), or if not, try CBA.", "1110", "CBA (50%), or if not, BAC.", "11100", "BAC (100%)", "12", "ABB (33.3%), or if not, try BAB.", "121", "BAB (50%), or if not, BBA.", "1211", "BBA (100%)", "2", "AAB (16.7%)", "21", "ABA (25%)", "211", "BAA (50%), or if not, CAA.", "2112", "CAA (100%)", "212", "ACA (100%)", "22", "AAC (100%)"]);
   }, "codeTreeChanceT", "codeTreeChanceM", "$get$codeTreeChanceM", function() {
     return P.LinkedHashMap__makeLiteral(["", "AAA (3.7%)", "0", "BBB (12.5%)", "00", "CCC (100%)", "01", "ABC (0%)", "010", "CCB (100%)", "011", "BCC (100%)", "012", "CBC (100%)", "02", "ABC (0%)", "020", "BCB (100%)", "021", "CBB (100%)", "022", "BBC (100%)", "1", "ABC (8.3%)", "10", "BAB (25%)", "100", "CCA (100%)", "101", "BCA (100%)", "102", "CAB (100%)", "11", "BBA (20%)", "110", "ACB (50%), or if not, CAC.", "1100", "CAC (100%)", "111", "BAC (100%)", "112", "CBA (100%)", "12", "ABB (50%), or if not, ACC.", "121", "ACC (100%)", "2", "ABC (0%)", "20", "BAA (50%), or if not, CAA.", "202", "CAA (100%)", "21", "AAB (50%), or if not, ACA.", "211", "ACA (100%)", "22", "ABA (50%), or if not, AAC.", "221", "AAC (100%)"]);
-  }, "codeTreeChanceM"]);
+  }, "codeTreeChanceM", "add0", "$get$add0", function() {
+    return W.querySelector("#add0");
+  }, "add0", "add1", "$get$add1", function() {
+    return W.querySelector("#add1");
+  }, "add1", "add2", "$get$add2", function() {
+    return W.querySelector("#add2");
+  }, "add2", "radioMadisons", "$get$radioMadisons", function() {
+    return W.querySelector("#radioMadisons");
+  }, "radioMadisons", "checkCopy", "$get$checkCopy", function() {
+    return W.querySelector("#checkCopy");
+  }, "checkCopy", "checkChance", "$get$checkChance", function() {
+    return W.querySelector("#checkChance");
+  }, "checkChance", "codeOutput", "$get$codeOutput", function() {
+    return W.querySelector("#codeOutput");
+  }, "codeOutput"]);
   Isolate = Isolate.$finishIsolateConstructor(Isolate);
   $ = new Isolate();
   init.metadata = [null];
