@@ -130,6 +130,8 @@ final Map codeTreeChanceM = {
 final ButtonElement add0 = querySelector("#add0");
 final ButtonElement add1 = querySelector("#add1");
 final ButtonElement add2 = querySelector("#add2");
+final ButtonElement reset = querySelector("#reset");
+final RadioButtonInputElement radioThraxis = querySelector("#radioThraxis");
 final RadioButtonInputElement radioMadisons = querySelector("#radioMadisons");
 final CheckboxInputElement checkCopy = querySelector("#checkCopy");
 final CheckboxInputElement checkChance = querySelector("#checkChance");
@@ -140,14 +142,14 @@ String tree;
 // Initalize program.
 void main() {
   changeCodeTreeReset();
-  querySelector("#add0").onClick.listen(moveNode);
-  querySelector("#add1").onClick.listen(moveNode);
-  querySelector("#add2").onClick.listen(moveNode);
-  querySelector("#reset").onClick.listen(reset);
-  querySelector("#radioThraxis").onChange.listen(changeCodeTreeReset);
-  querySelector("#radioMadisons").onChange.listen(changeCodeTreeReset);
-  querySelector("#checkCopy").onChange.listen(pushOutput);
-  querySelector("#checkChance").onChange.listen(changeCodeTreeChance);
+  add0.onClick.listen(moveNode);
+  add1.onClick.listen(moveNode);
+  add2.onClick.listen(moveNode);
+  reset.onClick.listen(resetPosition);
+  radioThraxis.onChange.listen(changeCodeTreeReset);
+  radioMadisons.onChange.listen(changeCodeTreeReset);
+  checkCopy.onChange.listen(pushOutput);
+  checkChance.onChange.listen(changeCodeTreeChance);
 }
 
 // Set the appropriate code tree to follow based on user selection.
@@ -158,19 +160,17 @@ void changeCodeTree([Event event]) {
     } else {
       codeTree = codeTreeM;
     }
+  } else if (checkChance.checked) {
+    codeTree = codeTreeChanceT;
   } else {
-    if (checkChance.checked) {
-      codeTree = codeTreeChanceT;
-    } else {
-      codeTree = codeTreeT;
-    }
+    codeTree = codeTreeT;
   }
 }
 
 // Updates the branch key/value pairs and resets the node position.
 void changeCodeTreeReset([Event event]) {
   changeCodeTree();
-  reset();
+  resetPosition();
 }
 
 // Updates the key/value pairs and retains the current node position.
@@ -180,7 +180,7 @@ void changeCodeTreeChance(Event event) {
 }
 
 // Resets the node position.
-void reset([MouseEvent event]) {
+void resetPosition([MouseEvent event]) {
   tree = "";
   pushOutput();
   print("-----Reset----");
@@ -209,18 +209,24 @@ void pushOutput([Event event]) {
 // for a visual indication of what options are available.
 void updateButtonStyles() {
   if (codeTree[tree + "0"] == null) {
-    add0.disabled = true;
-  } else {
+    if (add0.disabled == false) {
+      add0.disabled = true;
+    }
+  } else if (add0.disabled) {
     add0.disabled = false;
   }
   if (codeTree[tree + "1"] == null) {
-    add1.disabled = true;
-  } else {
+    if (add1.disabled == false) {
+      add1.disabled = true;
+    }
+  } else if (add1.disabled) {
     add1.disabled = false;
   }
   if (codeTree[tree + "2"] == null) {
-    add2.disabled = true;
-  } else {
+    if (add2.disabled == false) {
+      add2.disabled = true;
+    }
+  } else if (add2.disabled) {
     add2.disabled = false;
   }
 }
