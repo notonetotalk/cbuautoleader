@@ -135,9 +135,9 @@ final RadioButtonInputElement radioThraxis = querySelector("#radioThraxis");
 final RadioButtonInputElement radioMadisons = querySelector("#radioMadisons");
 final CheckboxInputElement checkCopy = querySelector("#checkCopy");
 final CheckboxInputElement checkChance = querySelector("#checkChance");
-final TextInputElement codeOutput = querySelector("#codeOutput");
+final DivElement codeOutput = querySelector("#codeOutput");
 Map codeTree;
-String tree;
+String node;
 
 // Initalize program.
 void main() {
@@ -181,7 +181,7 @@ void changeCodeTreeChance(Event event) {
 
 // Resets the node position.
 void resetPosition([MouseEvent event]) {
-  tree = "";
+  node = "";
   pushOutput();
   print("-----Reset----");
 }
@@ -189,7 +189,7 @@ void resetPosition([MouseEvent event]) {
 // Move branch node position.
 void moveNode(MouseEvent event) {
   final String buttonValue = (event.target as ButtonElement).value;
-  tree = tree + buttonValue;
+  node = node + buttonValue;
   pushOutput();
   print("Pressed ${buttonValue}");
 }
@@ -197,10 +197,21 @@ void moveNode(MouseEvent event) {
 // Output the code at the current branch node,
 // and copies the output to clipboard if option is selected.
 void pushOutput([Event event]) {
-  codeOutput.value = codeTree[tree];
+  codeOutput.text = codeTree[node];
   if (checkCopy.checked) {
-    codeOutput.select();
-    document.execCommand("copy");
+    // Hack to copy text without textfields.
+    final textarea = new TextAreaElement();
+    document.body.append(textarea);
+    textarea.style.border = '0';
+    textarea.style.margin = '0';
+    textarea.style.padding = '0';
+    textarea.style.opacity = '0';
+    textarea.style.position = 'absolute';
+    textarea.readOnly = true;
+    textarea.value = codeTree[node];
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
   }
   updateButtonStyles();
 }
@@ -208,21 +219,21 @@ void pushOutput([Event event]) {
 // The following function updates the button styles
 // for a visual indication of what options are available.
 void updateButtonStyles() {
-  if (codeTree[tree + "0"] == null) {
+  if (codeTree[node + "0"] == null) {
     if (add0.disabled == false) {
       add0.disabled = true;
     }
   } else if (add0.disabled) {
     add0.disabled = false;
   }
-  if (codeTree[tree + "1"] == null) {
+  if (codeTree[node + "1"] == null) {
     if (add1.disabled == false) {
       add1.disabled = true;
     }
   } else if (add1.disabled) {
     add1.disabled = false;
   }
-  if (codeTree[tree + "2"] == null) {
+  if (codeTree[node + "2"] == null) {
     if (add2.disabled == false) {
       add2.disabled = true;
     }
