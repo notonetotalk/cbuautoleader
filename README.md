@@ -1,6 +1,6 @@
 # CBU AutoLeader
 
-A tool to help ease leading the Core Business Unit mini-game offered in The Sims Online/FreeSO, instead of referring to a chart, memorization, or on-hand logic. The tool utilizes two popular methods used to codebreak the game, which can be referenced using the following links:
+A simple tool to help ease leading a team for the Core Business Unit mini-game offered in The Sims Online/FreeSO. Instead of referring to a chart, memorization, or on-hand logic, users only have to push a button. The tool utilizes two popular methods used to codebreak the game, which can be referenced using the following links:
 
 - [Thraxis optimized by Madison](https://www.dropbox.com/s/afk24ze29wdfolv/cbuthraxisopt.gif?dl=0)
 
