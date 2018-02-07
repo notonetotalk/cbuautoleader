@@ -110,7 +110,7 @@ body{
 .c6858{
   padding:10px;
   font-size:36px;
-  font-weight:500;
+  font-weight:700;
   font-family:Arial, Helvetica, sans-serif;
   color:#d4d4d4;
   text-align:center;
@@ -169,6 +169,7 @@ button::-moz-focus-inner {
   font-weight:700;
   color:rgb(212, 212, 212);
   text-align:center;
+  color:rgb(42, 110, 110);
 }
 @media (max-width: 480px){
   .cell{
