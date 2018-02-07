@@ -113,23 +113,29 @@ body{
   padding-left:10px;
   font-size:1em;
   cursor:pointer;
-  box-shadow:1px 1px 1px 0px #2e2e2e ;
+  border-bottom:2px solid #494949;
+  vertical-align:middle;
+  border-radius:3px;
+  font-weight:bold;
 }
 .form-group{
   padding:0px 0px 10px 0px;
 }
 .button.reset-button{
   background-color:#785580;
+  border-bottom-color: #5a3f60;
 }
 .button:active, .button:disabled{
   background-color:#434343;
-  box-shadow:-1px -1px 1px 0px #363636 ;
   color:#777777;
+  border-bottom:0px;
+  margin-top:17px;
 }
 .button.reset-button:active, .button.reset-button:disabled{
-  box-shadow:-1px -1px 1px 0px #363636 ;
   background-color:#5b4260;
   color:#777777;
+  border-bottom:0px;
+  margin-top:17px;
 }
 .c6858{
   padding:10px;
