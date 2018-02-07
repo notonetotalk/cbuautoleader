@@ -1,10 +1,15 @@
 * {
   box-sizing: border-box;
 }
+html{
+  height: 100%;
+}
 body {
   margin: 0;
 }
 body{
+  position: relative;
+  min-height: 100%;
   background-color:#3a3a3a;
 }
 .row{
@@ -23,15 +28,16 @@ body{
   color:#000000;
 }
 .form{
+  position: relative;
   padding-top:5%;
   padding-right:15px;
-  padding-bottom:5%;
   padding-left:15px;
   background-color:rgba(255,255,255,0);
   width:80%;
   margin:0px auto auto auto;
   max-width:750px;
-  min-height: calc(100vh - 70px);
+  min-height: 100%;
+  padding-bottom: 6rem;
 }
 .button{
   width:100%;
@@ -132,14 +138,13 @@ body{
 button::-moz-focus-inner {
   border: 0 !important;
 }
-.row.links{
-  display:table;
-  padding-top:14px;
-  padding-right:0px;
-  padding-bottom:0px;
-  padding-left:0px;
+.footer{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
   width:100%;
-  height: 70px;
   margin:0px 0px 0px 0px;
   text-align: center;
   background-color: #414141;
