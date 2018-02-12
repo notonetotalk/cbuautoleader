@@ -4,10 +4,8 @@
 html{
   height: 100%;
 }
-body {
-  margin: 0;
-}
 body{
+  margin: 0;
   position: relative;
   min-height: 100%;
   background-color:#3a3a3a;
@@ -127,14 +125,6 @@ body{
 .form-group.toggle-group{
   display:inline-block;
 }
-@keyframes fadeEffect{
-  0%{
-    opacity:0;
-  }
-  100%{
-    opacity:1;
-  }
-}
 button::-moz-focus-inner {
   border: 0 !important;
 }
@@ -191,5 +181,13 @@ button::-moz-focus-inner {
   }
   .c6858{
     font-size:24px;
+  }
+}
+@keyframes fadeEffect{
+  0%{
+    opacity:0;
+  }
+  100%{
+    opacity:1;
   }
 }

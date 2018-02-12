@@ -7,3 +7,11 @@ A simple tool to help ease leading a team for the Core Business Unit mini-game o
 - [Madison's CBU Chart](https://www.dropbox.com/s/ds29xb1r7n9piyy/cbuchart.gif?dl=0)
 
 A live version of the tool can be found [here](https://git.io/CBUAL).
+
+## Credits
+
+This web application was written by notonetotalk.
+
+Discord: notonetotalk#4849
+
+FreeSO sim names: Nell, Ishmael, Eshel

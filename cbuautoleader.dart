@@ -150,7 +150,6 @@ void main() {
   radioMadisons.onChange.listen(changeCodeTreeReset);
   checkCopy.onChange.listen(pushOutput);
   checkChance.onChange.listen(changeCodeTreeChance);
-
   document.body.onKeyPress.listen(onKeyPressHandle);
 }
 
