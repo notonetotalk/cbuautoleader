@@ -150,16 +150,28 @@ void main() {
   radioMadisons.onChange.listen(changeCodeTreeReset);
   checkCopy.onChange.listen(pushOutput);
   checkChance.onChange.listen(changeCodeTreeChance);
-  document.body.onKeyPress.listen(onKeyPressHandle);
+  document.body.onKeyDown.listen(onKeyDownHandle);
+  document.body.onKeyUp.listen(onKeyUpHandle);
 }
 
-// Call the appropriate button click corresponding to key pressed
-void onKeyPressHandle([KeyboardEvent event]) {
+// Call the appropriate button click corresponding to key pressed.
+void onKeyUpHandle([KeyboardEvent event]) {
+  updateButtonStyles();
   switch(event.key) {
     case '0': add0.click(); break;
     case '1': add1.click(); break;
     case '2': add2.click(); break;
     case 'Enter': reset.click(); break;
+  }
+}
+
+// Updates button style upon key press down.
+void onKeyDownHandle([KeyboardEvent event]) {
+  switch(event.key) {
+    case '0': add0.disabled = true; break;
+    case '1': add1.disabled = true; break;
+    case '2': add2.disabled = true; break;
+    case 'Enter': reset.disabled = true; break;
   }
 }
 
@@ -200,6 +212,7 @@ void resetPosition([MouseEvent event]) {
 // Move branch node position.
 void moveNode(MouseEvent event) {
   final String buttonValue = (event.target as ButtonElement).value;
+  (event.target as ButtonElement).disabled = true;
   node = node + buttonValue;
   pushOutput();
   print("Pressed ${buttonValue}");
@@ -250,5 +263,8 @@ void updateButtonStyles() {
     }
   } else if (add2.disabled) {
     add2.disabled = false;
+  }
+  if (reset.disabled) {
+    reset.disabled = false;
   }
 }
