@@ -150,6 +150,18 @@ void main() {
   radioMadisons.onChange.listen(changeCodeTreeReset);
   checkCopy.onChange.listen(pushOutput);
   checkChance.onChange.listen(changeCodeTreeChance);
+
+  document.body.onKeyPress.listen(onKeyPressHandle);
+}
+
+// Call the appropriate button click corresponding to key pressed
+void onKeyPressHandle([KeyboardEvent event]) {
+  switch(event.key) {
+    case '0': add0.click(); break;
+    case '1': add1.click(); break;
+    case '2': add2.click(); break;
+    case 'Enter': reset.click(); break;
+  }
 }
 
 // Set the appropriate code tree to follow based on user selection.
