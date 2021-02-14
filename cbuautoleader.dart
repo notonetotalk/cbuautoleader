@@ -138,6 +138,7 @@ final CheckboxInputElement checkChance = querySelector("#checkChance");
 final DivElement codeOutput = querySelector("#codeOutput");
 Map codeTree;
 String node;
+final TextAreaElement textarea = new TextAreaElement();
 
 // Initalize program.
 void main() {
@@ -152,6 +153,24 @@ void main() {
   checkChance.onChange.listen(changeCodeTreeChance);
   document.body.onKeyDown.listen(onKeyDownHandle);
   document.body.onKeyUp.listen(onKeyUpHandle);
+  // Hidden text area
+  document.body.append(textarea);
+  textarea.style.border = '0';
+  textarea.style.margin = '0';
+  textarea.style.padding = '0';
+  textarea.style.opacity = '0';
+  textarea.style.position = 'absolute';
+  textarea.readOnly = true;
+}
+
+// Updates button style upon key press down.
+void onKeyDownHandle([KeyboardEvent event]) {
+  switch(event.key) {
+    case '0': add0.disabled = true; break;
+    case '1': add1.disabled = true; break;
+    case '2': add2.disabled = true; break;
+    case 'Enter': reset.disabled = true; break;
+  }
 }
 
 // Call the appropriate button click corresponding to key pressed.
@@ -162,16 +181,6 @@ void onKeyUpHandle([KeyboardEvent event]) {
     case '1': add1.click(); break;
     case '2': add2.click(); break;
     case 'Enter': reset.click(); break;
-  }
-}
-
-// Updates button style upon key press down.
-void onKeyDownHandle([KeyboardEvent event]) {
-  switch(event.key) {
-    case '0': add0.disabled = true; break;
-    case '1': add1.disabled = true; break;
-    case '2': add2.disabled = true; break;
-    case 'Enter': reset.disabled = true; break;
   }
 }
 
@@ -224,18 +233,12 @@ void pushOutput([Event event]) {
   codeOutput.text = codeTree[node];
   if (checkCopy.checked) {
     // Hack to copy text without textfields.
-    final textarea = new TextAreaElement();
-    document.body.append(textarea);
-    textarea.style.border = '0';
-    textarea.style.margin = '0';
-    textarea.style.padding = '0';
-    textarea.style.opacity = '0';
-    textarea.style.position = 'absolute';
-    textarea.readOnly = true;
     textarea.value = codeTree[node];
     textarea.select();
     document.execCommand('copy');
-    textarea.remove();
+  } else {
+    // Hack to keep keyboard focus.
+    textarea.select();
   }
   updateButtonStyles();
 }
@@ -244,27 +247,19 @@ void pushOutput([Event event]) {
 // for a visual indication of what options are available.
 void updateButtonStyles() {
   if (codeTree[node + "0"] == null) {
-    if (add0.disabled == false) {
-      add0.disabled = true;
-    }
-  } else if (add0.disabled) {
+    add0.disabled = true;
+  } else {
     add0.disabled = false;
   }
   if (codeTree[node + "1"] == null) {
-    if (add1.disabled == false) {
-      add1.disabled = true;
-    }
-  } else if (add1.disabled) {
+    add1.disabled = true;
+  } else {
     add1.disabled = false;
   }
   if (codeTree[node + "2"] == null) {
-    if (add2.disabled == false) {
-      add2.disabled = true;
-    }
-  } else if (add2.disabled) {
+    add2.disabled = true;
+  } else {
     add2.disabled = false;
   }
-  if (reset.disabled) {
-    reset.disabled = false;
-  }
+  reset.disabled = false;
 }
