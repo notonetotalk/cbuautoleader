@@ -247,19 +247,27 @@ void pushOutput([Event event]) {
 // for a visual indication of what options are available.
 void updateButtonStyles() {
   if (codeTree[node + "0"] == null) {
-    add0.disabled = true;
-  } else {
+    if (add0.disabled == false) {
+      add0.disabled = true;
+    }
+  } else if (add0.disabled) {
     add0.disabled = false;
   }
   if (codeTree[node + "1"] == null) {
-    add1.disabled = true;
-  } else {
+    if (add1.disabled == false) {
+      add1.disabled = true;
+    }
+  } else if (add1.disabled) {
     add1.disabled = false;
   }
   if (codeTree[node + "2"] == null) {
-    add2.disabled = true;
-  } else {
+    if (add2.disabled == false) {
+      add2.disabled = true;
+    }
+  } else if (add2.disabled) {
     add2.disabled = false;
   }
-  reset.disabled = false;
+  if (reset.disabled) {
+    reset.disabled = false;
+  }
 }
